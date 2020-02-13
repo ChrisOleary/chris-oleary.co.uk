@@ -1,0 +1,44 @@
+﻿@model SpotifyFutureAlbums.Models.TrackInfoObject
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+    <ul>
+
+        @*@Model.tracks.items[0].album.artists[0]*@
+
+        @foreach (var item in Model.tracks.items)
+        {
+
+            <ul>
+                <li>@item.duration_ms</li>
+            </ul>
+
+            @*foreach (var item3 in item.artists)
+            {
+                <ul>
+                    <li>@item3.name</li>
+                </ul>
+            }*@
+
+
+            @*foreach (var item2 in item.artists)
+            {
+                <ul>
+                    <li>@item2.name </li>
+                    <li>@item2.uri </li>
+                    <li>@item2.href </li>
+                    <li>@item2.type </li>
+                    <li>@item2.external_urls </li>
+                    <li>@item2.type </li>
+                </ul>
+            }*@
+
+
+
+        }
+
+        @*@Model.tracks.next*@
+
+    </ul>
