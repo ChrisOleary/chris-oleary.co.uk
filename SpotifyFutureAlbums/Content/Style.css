@@ -1,0 +1,215 @@
+﻿/* Resets
+ --------------- */
+html, body, div, h1, h2, h3, h4, h5, h6, ul, ol, dl, li, dt, dd, p, blockquote, pre, form, fieldset, table, th, td, img {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+body, html {
+    height: 100%;
+}
+
+body {
+    background: #f7c315;
+    overflow: hidden;
+}
+
+/* Layout
+ --------------- */
+/* Small */
+@media screen and (max-width: 40em) {
+}
+
+/* Medium */
+@media screen and (min-width: 40em) {
+}
+
+/* Large */
+@media screen and (min-width: 70em) {
+    body {
+        background: url('../img/sunburst.jpg') bottom center no-repeat;
+        background-size: cover;
+    }
+
+    #content {
+        height: 68%;
+        padding-top: 1em;
+    }
+
+    #bottom {
+        height: 32%;
+    }
+
+    #bottomtop {
+        height: 37%;
+    }
+
+    #bottombottom {
+        height: 63%;
+        background: #191917 url('../img/sq2.jpg') top left no-repeat;
+        background-size: contain;
+    }
+
+    #radiant {
+        background: url('../img/bg-radiant.png') bottom center no-repeat;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 84%;
+        z-index: -1;
+    }
+
+    #quotehere {
+        font-family: georgia, serif;
+        text-shadow: 1px 1px 2px #ffff99;
+        text-align: right;
+        margin: 0 auto;
+        width: 80%;
+    }
+
+    #quote {
+        font-size: 6em;
+        cursor: pointer;
+        text-align: left;
+    }
+
+        #quote a {
+            text-decoration: none;
+            color: #222;
+        }
+
+            #quote a:hover {
+                color: #000;
+            }
+
+    #who {
+        font-size: 2em;
+    }
+
+    #episode {
+        font-size: 1.6em;
+        font-family: monospace;
+    }
+
+    #plink {
+        font-size: 1.4em;
+        font-variant: small-caps;
+        font-family: monospace;
+        text-decoration: none;
+        color: #444;
+        margin: 0;
+        padding: 0;
+    }
+
+    #links {
+        display: block;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+    }
+
+    .mlink {
+        display: inline-block;
+        font-size: 1.5em;
+        color: #222;
+        background: #f7c315 url('../img/clover-s.png');
+        background-repeat: no-repeat;
+        background-position: 50% 54px;
+        text-decoration: none;
+        text-shadow: 1px 1px 1px #ffff99;
+        padding: 0.4em 1.1em;
+        margin-right: 1em;
+        -webkit-transition: padding 0.2s linear, background-position 0.4s ease;
+        -moz-transition: padding 0.2s linear, background-position 0.4s ease;
+        -o-transition: padding 0.2s linear, background-position 0.4s ease;
+        transition: padding 0.2s linear, background-position 0.4s ease;
+    }
+
+        .mlink:hover {
+            padding-top: 2.5em;
+            background-position: 50% 8px;
+        }
+
+    #bottomtop {
+        background: url('../img/city1.png') bottom left no-repeat, url('../img/city4.png') bottom right no-repeat;
+        background-size: contain;
+    }
+
+    #aboutcontent {
+        height: 100%;
+        overflow: auto;
+        padding: 0 9em;
+    }
+
+    h1 {
+        font-size: 3.2em;
+        margin: 0.3em 0 0 0;
+        text-shadow: 1px 1px 4px #000;
+        color: #fff;
+    }
+
+    h3 {
+        font-size: 1.8em;
+        font-variant: small-caps;
+        font-weight: bold;
+        text-shadow: 1px 1px 3px #000;
+        color: #fff;
+        margin: 1em 0 0 0;
+    }
+
+    p {
+        font-size: 1.2em;
+    }
+
+    .line {
+        width: 100%;
+        height: 0px;
+        border-top: 1px solid #666;
+        border-bottom: 1px solid #eee;
+        margin: 4px 0 10px 0;
+    }
+
+    .code {
+        background: #fde48e;
+        padding: 8px;
+        margin: 16px;
+        -webkit-border-radius: 6px;
+        -moz-border-radius: 6px;
+        border-radius: 6px;
+        font-size: 1.2em;
+    }
+
+    #example {
+        background: #fde48e;
+        border: 1px dashed #444;
+        padding: 1em;
+        margin: 1em;
+        display: inline-block;
+    }
+
+    code {
+        font-size: 1.2em;
+        word-wrap: break-word;
+    }
+
+    ul {
+        margin: 0.8em 2em;
+        list-style: url('../img/bullet.png');
+    }
+
+    li {
+        margin: 0.3em 0;
+        font-size: 1em;
+    }
+
+    strong {
+        font-family: courier, monospace;
+        color: #0055ac;
+        font-size: 1.2em;
+    }
+}

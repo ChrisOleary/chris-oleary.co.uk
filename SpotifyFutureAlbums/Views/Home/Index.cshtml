@@ -3,21 +3,30 @@
 @{
     ViewBag.Title = "Home Page";
 }
+<!-- Spotify -->
+<section class="page-section" id="services">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2 class="section-heading text-uppercase">Spotify</h2>
+            </div>
+        </div>
+    </div>
+</section>
 
-    <ul>
 
-        @*@Model.tracks.items[0].album.artists[0]*@
+    @*@Model.tracks.items[0].album.artists[0]*@
 
-        @foreach (var item in Model.tracks.items)
-        {
+    @foreach (var item in Model.tracks.items)
+    {
 
-            <ul>
-                <li>@item.duration_ms</li>
-                <li>@item.album</li>
-                <li>@item.disc_number</li>
-            </ul>
+        <ul>
+            <li>@item.duration_ms</li>
+            <li>@item.album</li>
+            <li>@item.disc_number</li>
+        </ul>
 
-            @*foreach (var item3 in item.artists)
+        @*foreach (var item3 in item.artists)
             {
                 <ul>
                     <li>@item3.name</li>
@@ -25,7 +34,7 @@
             }*@
 
 
-            @*foreach (var item2 in item.artists)
+        @*foreach (var item2 in item.artists)
             {
                 <ul>
                     <li>@item2.name </li>
@@ -39,8 +48,8 @@
 
 
 
-        }
+    }
 
-        @*@Model.tracks.next*@
+    @*@Model.tracks.next*@
 
-    </ul>
+</ul>
