@@ -1,40 +1,39 @@
-﻿using Newtonsoft.Json;
-using SpotifyFutureAlbums.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
+using Newtonsoft.Json;
+using SpotifyAPI.Web; //Base Namespace
+using SpotifyAPI.Web.Auth;
+using SpotifyAPI.Web.Enums; //Enums
+using SpotifyAPI.Web.Models; //Models for the JSON-responses
+using SpotifyFutureAlbums.Models;
+using PagedList;
 
 namespace SpotifyFutureAlbums.Controllers
 {
+
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        private static SpotifyWebAPI _spotify;
+
+        public async Task<ActionResult> Index()
         {
 
-            string trackTitle = "Back In Black";
-            string trackArtist = "ACDC";
-            string url = string.Format("https://api.spotify.com/v1/search?q={0} {1}&type=track&market=US&limit=10&offset=0", trackTitle, trackArtist);
-
-            var jsonData = GetTrackInfo(url);
-
-            string id = "";
-            int popularity = 0;
-
-            TrackInfoObject tList = JsonConvert.DeserializeObject<TrackInfoObject>(jsonData);
-          
-            return View(tList);
+            var myToken = GetAccessToken();
+            _spotify = new SpotifyWebAPI()
+            {
+                AccessToken = myToken,
+                TokenType = "Bearer"
+            };
+            var savedTracks = await _spotify.GetSavedTracksAsync(50);
+            return View (savedTracks);
         }
-
-
-
         public string GetAccessToken()
         {
             SpotifyTokenModel token = new SpotifyTokenModel();
@@ -111,5 +110,5 @@ namespace SpotifyFutureAlbums.Controllers
             return webResponse;
         }
 
-    }
+    }  
 }

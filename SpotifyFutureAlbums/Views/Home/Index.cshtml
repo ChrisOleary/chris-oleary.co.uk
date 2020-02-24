@@ -1,55 +1,17 @@
-﻿@model SpotifyFutureAlbums.Models.TrackInfoObject
+﻿@model PagedList.IList<SpotifyFutureAlbums.Models.IndexModel>
 
-@{
-    ViewBag.Title = "Home Page";
-}
-<!-- Spotify -->
-<section class="page-section" id="services">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <h2 class="section-heading text-uppercase">Spotify</h2>
-            </div>
-        </div>
-    </div>
-</section>
-
-
-    @*@Model.tracks.items[0].album.artists[0]*@
-
-    @foreach (var item in Model.tracks.items)
-    {
-
-        <ul>
-            <li>@item.duration_ms</li>
-            <li>@item.album</li>
-            <li>@item.disc_number</li>
-        </ul>
-
-        @*foreach (var item3 in item.artists)
-            {
-                <ul>
-                    <li>@item3.name</li>
-                </ul>
-            }*@
-
-
-        @*foreach (var item2 in item.artists)
-            {
-                <ul>
-                    <li>@item2.name </li>
-                    <li>@item2.uri </li>
-                    <li>@item2.href </li>
-                    <li>@item2.type </li>
-                    <li>@item2.external_urls </li>
-                    <li>@item2.type </li>
-                </ul>
-            }*@
-
-
-
+    @{
+        ViewBag.Title = "My Spotify";
     }
 
-    @*@Model.tracks.next*@
 
-</ul>
+    <div class="text-center">
+        You have @Model.SavedTracks.Total saved tracks in your library! Here are 50 of them:
+
+        @*<ul>
+                @foreach (var item in Model.SavedTracks.Items)
+                {
+                    <li>@item.Track.Name</li>
+                }
+            </ul>*@
+    </div>
