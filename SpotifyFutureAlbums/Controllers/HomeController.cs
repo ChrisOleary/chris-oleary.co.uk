@@ -25,6 +25,9 @@ namespace SpotifyFutureAlbums.Controllers
         public async Task<ActionResult> Index()
         {
 
+            //FANTASY FOOTBALL API
+            var fantasyFootball = FantasyFootball();
+
             var myToken = GetAccessToken();
             _spotify = new SpotifyWebAPI()
             {
@@ -32,8 +35,26 @@ namespace SpotifyFutureAlbums.Controllers
                 TokenType = "Bearer"
             };
             var savedTracks = await _spotify.GetSavedTracksAsync(50);
-            return View (savedTracks);
+            return View(savedTracks);
         }
+
+        public string FantasyFootball()
+        {
+            string url = "https://users.premierleague.com/accounts/login/";
+            HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(url);
+            webRequest.Method = "POST";
+            webRequest.ContentType = "application/x-www-form-urlencoded";
+            webRequest.Accept = "application/json";
+           
+
+            HttpWebResponse resp = (HttpWebResponse)webRequest.GetResponse();
+            string json = "";
+
+          
+
+            return json;
+        }
+
         public string GetAccessToken()
         {
             SpotifyTokenModel token = new SpotifyTokenModel();
