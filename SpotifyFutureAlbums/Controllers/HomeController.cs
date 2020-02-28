@@ -20,39 +20,26 @@ namespace SpotifyFutureAlbums.Controllers
 
     public class HomeController : Controller
     {
-        private static SpotifyWebAPI _spotify;
 
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
 
-            //FANTASY FOOTBALL API
-            var fantasyFootball = FantasyFootball();
+            var meh = FantasyFootball();
 
-            var myToken = GetAccessToken();
-            _spotify = new SpotifyWebAPI()
-            {
-                AccessToken = myToken,
-                TokenType = "Bearer"
-            };
-            var savedTracks = await _spotify.GetSavedTracksAsync(50);
-            return View(savedTracks);
+            Console.WriteLine(meh); 
+            return View(meh);
         }
 
-        public string FantasyFootball()
+        static async Task<object> FantasyFootball()
         {
-            string url = "https://users.premierleague.com/accounts/login/";
-            HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(url);
-            webRequest.Method = "POST";
-            webRequest.ContentType = "application/x-www-form-urlencoded";
-            webRequest.Accept = "application/json";
+   
+            string url = "https://fantasy.premierleague.com/api/entry/186809/";
+            var client = new HttpClient();
+            var result = await client.GetStringAsync(url);
+            var json = JsonConvert.DeserializeObject(result);
+
+            return json.ToString();
            
-
-            HttpWebResponse resp = (HttpWebResponse)webRequest.GetResponse();
-            string json = "";
-
-          
-
-            return json;
         }
 
         public string GetAccessToken()
