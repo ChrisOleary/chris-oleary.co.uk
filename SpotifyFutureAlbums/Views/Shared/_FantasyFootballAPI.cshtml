@@ -1,0 +1,41 @@
+﻿@model SpotifyFutureAlbums.Models.FootballObject
+
+
+@*Fantasy Football API*@
+<section class="page-section" id="services">
+    <div class="container" id="bottombottom">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2 class="section-heading text-uppercase">My Fantasy Football Stats</h2>
+                <table class="table table-bordered table-striped" style="margin:auto; width:50% !important;">
+                    <tr>
+                        <th>Public Stats</th>
+                    </tr>
+                    <tr>
+                        <th>Username</th>
+                        <th>Overall Points</th>
+                        <th>Joined</th>
+                    </tr>
+                    <tr>
+                        <td>@Html.DisplayFor(m => m.name)</td>
+                        <td>@Html.DisplayFor(m => m.summary_overall_points)</td>
+                        <td> @Html.DisplayFor(m => m.joined_time)</td>
+                    </tr>
+                </table>
+
+                <table class="table table-bordered table-striped" style="margin:auto; width:50% !important;">
+                    <tr>
+                        <th>Private Stats</th>
+                    </tr>
+                    <tr>
+                        <th></th>
+                    </tr>
+                    <tr>
+                        <td>@*@Html.DisplayFor(m => m. XXX )*@</td>
+                    </tr>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</section>

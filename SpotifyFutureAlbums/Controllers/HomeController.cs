@@ -21,26 +21,36 @@ namespace SpotifyFutureAlbums.Controllers
     public class HomeController : Controller
     {
 
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
+            // <FootballObject> is used as an alias for <T> in FantasyFootball()
+            var FootballObject = await FantasyFootball<FootballObject>();
 
-            var meh = FantasyFootball();
-
-            Console.WriteLine(meh); 
-            return View(meh);
+            return View(FootballObject);
         }
 
-        static async Task<object> FantasyFootball()
+        static async Task<T> FantasyFootball<T>()
         {
-   
+
             string url = "https://fantasy.premierleague.com/api/entry/186809/";
             var client = new HttpClient();
             var result = await client.GetStringAsync(url);
-            var json = JsonConvert.DeserializeObject(result);
+            var DeserializeObject = JsonConvert.DeserializeObject<T>(result);
 
-            return json.ToString();
-           
+            return DeserializeObject;
+
         }
+
+        static async Task<T> GetAlwaysSunnyQuote<T>()
+        {
+            string url = "http://sunnyquotes.net/q.php?random";
+            var httpclient = new HttpClient();
+            var result = await httpclient.GetStringAsync(url);
+            var DeserializeObject = JsonConvert.DeserializeObject<T>(result);
+
+            return DeserializeObject;
+        }
+
 
         public string GetAccessToken()
         {
@@ -98,7 +108,8 @@ namespace SpotifyFutureAlbums.Controllers
                 // TODO: Had a task cancelled here, too many errors. Find a better way to process this maybe.
                 // Same code is in GetTrackFeatures function.
                 var task = hc.SendAsync(request)
-                    .ContinueWith((taskwithmsg) => {
+                    .ContinueWith((taskwithmsg) =>
+                    {
                         var response = taskwithmsg.Result;
                         var jsonTask = response.Content.ReadAsStringAsync();
                         webResponse = jsonTask.Result;
@@ -118,5 +129,5 @@ namespace SpotifyFutureAlbums.Controllers
             return webResponse;
         }
 
-    }  
+    }
 }

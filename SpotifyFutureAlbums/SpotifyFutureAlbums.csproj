@@ -552,6 +552,9 @@
     <Content Include="vendor\jquery\jquery.slim.min.map" />
     <Content Include="Views\Shared\_Header.cshtml" />
     <Content Include="Views\Shared\_AlwaysSunny.cshtml" />
+    <Content Include="Views\Shared\_FantasyFootballAPI.cshtml" />
+    <Content Include="Views\Shared\_SpotifyAPI.cshtml" />
+    <Content Include="Views\Shared\_WeatherAPI.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
