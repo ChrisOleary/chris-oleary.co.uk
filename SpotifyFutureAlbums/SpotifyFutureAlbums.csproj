@@ -271,6 +271,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Album.cs" />
+    <Compile Include="Models\AlwaysSunnyObject.cs" />
     <Compile Include="Models\Artist.cs" />
     <Compile Include="Models\Artist2.cs" />
     <Compile Include="Models\Classic.cs" />
@@ -280,6 +281,7 @@
     <Compile Include="Models\ExternalUrls2.cs" />
     <Compile Include="Models\ExternalUrls3.cs" />
     <Compile Include="Models\ExternalUrls4.cs" />
+    <Compile Include="Models\FFPostLoginDetails.cs" />
     <Compile Include="Models\FootballObject.cs" />
     <Compile Include="Models\Image.cs" />
     <Compile Include="Models\IndexModel.cs" />
@@ -291,6 +293,7 @@
     <Compile Include="Models\TrackInfoObject.cs" />
     <Compile Include="Models\Tracks.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\AllAPIDetails.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\agency.css" />

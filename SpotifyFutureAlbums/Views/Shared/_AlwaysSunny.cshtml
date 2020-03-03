@@ -1,10 +1,18 @@
-﻿@*Always Sunny API*@
+﻿@model SpotifyFutureAlbums.ViewModels.AllAPIDetails
+
+@*Always Sunny API*@
 <section class="page-section" id="services">
     <div class="container" id="bottombottom">
         <div class="row">
             <div class="col-lg-12 text-center">
                 <h2 class="section-heading text-uppercase">Always Sunny API</h2>
-
+                <table class="table table-borderless">
+                    <tr>
+                        <td> @Html.DisplayFor(m => m.AlwaysSunny.sqQuote) </td>
+                        <td> @Html.DisplayFor(m => m.AlwaysSunny.sqWho) </td>
+                        <td> @Html.DisplayFor(m => m.AlwaysSunny.sqEp) </td>
+                    </tr>
+                </table>
             </div>
         </div>
     </div>

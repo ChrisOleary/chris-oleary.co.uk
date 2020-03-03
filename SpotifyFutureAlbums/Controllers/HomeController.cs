@@ -13,6 +13,7 @@ using SpotifyAPI.Web.Auth;
 using SpotifyAPI.Web.Enums; //Enums
 using SpotifyAPI.Web.Models; //Models for the JSON-responses
 using SpotifyFutureAlbums.Models;
+using SpotifyFutureAlbums.ViewModels;
 using PagedList;
 
 namespace SpotifyFutureAlbums.Controllers
@@ -26,9 +27,20 @@ namespace SpotifyFutureAlbums.Controllers
             // <FootballObject> is used as an alias for <T> in FantasyFootball()
             var FootballObject = await FantasyFootball<FootballObject>();
 
-            return View(FootballObject);
+            var AlwaysSunnyQuote = await GetAlwaysSunnyQuote<AlwaysSunnyObject>();
+
+
+            //return the view model and assign each API
+            return View(new AllAPIDetails
+            {
+                AlwaysSunny = AlwaysSunnyQuote,
+                Football = FootballObject
+            }
+
+                );
         }
 
+        [HttpGet]
         static async Task<T> FantasyFootball<T>()
         {
 
@@ -41,6 +53,7 @@ namespace SpotifyFutureAlbums.Controllers
 
         }
 
+        [HttpGet]
         static async Task<T> GetAlwaysSunnyQuote<T>()
         {
             string url = "http://sunnyquotes.net/q.php?random";
@@ -51,6 +64,25 @@ namespace SpotifyFutureAlbums.Controllers
             return DeserializeObject;
         }
 
+        [HttpPost]
+        public async Task<T> PostFantasyFootballLogins<T>()
+        {
+
+            var model = new FFPostLoginDetails()
+            {
+                login = "chris_oleary@hotmail.co.uk",
+                password = "99Vs3C!ND4rpzRQ",
+                redirect_uri = "https://fantasy.premierleague.com/a/login",
+                app = "plfpl-web"
+            };
+               
+            var httpclient = new HttpClient();
+            var stringContent = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
+            var result = await httpclient.PostAsync("https://fantasy.premierleague.com/a/login", stringContent);
+
+            //TODO THIS
+            return result.StatusCode;
+        }
 
         public string GetAccessToken()
         {
