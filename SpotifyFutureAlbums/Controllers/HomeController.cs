@@ -25,38 +25,38 @@ namespace SpotifyFutureAlbums.Controllers
         {
             // <FootballObject> is used as an alias for <T> in FantasyFootball()
             //var FootballObject = await FantasyFootball<FootballObject>();
-            var FFstats = await GetFFStats<FootballObject>();
+            var FFstats = await GetFFStats<MyTeamRootObject>();
 
             return View();
         }
+        [HttpPost]
         static async Task<T> GetFFStats<T>()
         {
             var csrftoken = "E2G7bfPMj0qfr9lSzCQvsCZzW6rDV1UXQAZxVVz731Q5y7ESBK663zPqxx630FBc";
             var pl_profile = "eyJzIjogIld6SXNNVE16TWpnek1EVmQ6MWpBR0FWOnF6R0lyMVFheDh3VmRpWUhrcERLYTFrSnEwRSIsICJ1IjogeyJpZCI6IDEzMzI4MzA1LCAiZm4iOiAiQ2hyaXMiLCAibG4iOiAiTydsZWFyeSIsICJmYyI6IG51bGx9fQ==";
-            var sessionid = ".eJyrVopPLC3JiC8tTi2Kz0xRslIyNDY2sjA2MFXSQZZKSkzOTs0DyRfkpBXk6IFk9AJ8QoFyxcHB_o5ALqqGjMTiDJBpaSbJaeYWacYGacamaSZGJokGZqYWpslmlqamyRZJFibGKSaGFpbGSrUAdVQrvA:1jAGAW: SysFdi6fSDLWwcTtQF7TBo16kNk";
 
+            // this url requires the authentication
             var uri = "https://fantasy.premierleague.com/api/my-team/186809";
-            HttpWebRequest rq = (HttpWebRequest)WebRequest.Create(uri);
-            rq.CookieContainer = new CookieContainer();
-            rq.CookieContainer.Add(new Cookie("csrftoken", csrftoken, "/", "fantasy.premierleague.com"));
-            rq.CookieContainer.Add(new Cookie("pl_profile", pl_profile, "/", "fantasy.premierleague.com"));
-            rq.CookieContainer.Add(new Cookie("sessionid", sessionid, "/", "fantasy.premierleague.com"));
-            HttpWebResponse resp = (HttpWebResponse)rq.GetResponse();
-            Console.WriteLine(resp.StatusDescription);
-            var client = new HttpClient();
+            var cookiecontainer = new CookieContainer();
+
+            // Gets the cookie container used to store server cookies by the handler
+            var handler = new HttpClientHandler();
+            handler.CookieContainer = cookiecontainer;
+            cookiecontainer.Add(new Uri(uri), new Cookie("csrftoken", csrftoken));
+            cookiecontainer.Add(new Uri(uri), new Cookie("pl_profile", pl_profile));
+
+
+            var client = new HttpClient(handler);
+
+            Console.WriteLine(handler);
+            
+            
+            
             var result = await client.GetStringAsync(uri);
             var DeserializeObject = JsonConvert.DeserializeObject<T>(result);
 
             Console.WriteLine(result);
             return DeserializeObject;
-
-            //returns content as string
-            var encoding = ASCIIEncoding.ASCII;
-            var reader = new System.IO.StreamReader(resp.GetResponseStream(), encoding);
-            var responseText = reader.ReadToEnd();
-            Console.WriteLine(responseText);
-
-
         
 
         }
