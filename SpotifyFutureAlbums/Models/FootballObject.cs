@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -8,6 +9,8 @@ namespace SpotifyFutureAlbums.Models
     public class FootballObject
     {
         public int id { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
         public DateTime joined_time { get; set; }
         public int started_event { get; set; }
         public object favourite_team { get; set; }

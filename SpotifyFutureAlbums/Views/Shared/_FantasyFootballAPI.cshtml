@@ -1,4 +1,4 @@
-﻿@model SpotifyFutureAlbums.Models.FootballObject
+﻿@model SpotifyFutureAlbums.ViewModels.AllAPIDetails
 
 
 @*Fantasy Football API*@
@@ -7,34 +7,42 @@
         <div class="row">
             <div class="col-lg-12 text-center">
                 <h2 class="section-heading text-uppercase">My Fantasy Football Stats</h2>
-                <table class="table table-bordered table-striped" style="margin:auto; width:50% !important;">
+                <table class="table table-bordered table-striped" style="margin:auto; width:100% !important;">
                     <tr>
-                        <th>Public Stats</th>
+                        <th colspan="6">This data is returned via the Premier League Public API</th>
                     </tr>
                     <tr>
-                        <th>Username</th>
+                        <th>Manager (Me)</th>
                         <th>Overall Points</th>
                         <th>Joined</th>
+                        <th>Total Transfers</th>
+                        <th>First Name</th>
+                        <th>Region</th>
                     </tr>
                     <tr>
-                        <td>@Html.DisplayFor(m => m.name)</td>
-                        <td>@Html.DisplayFor(m => m.summary_overall_points)</td>
-                        <td> @Html.DisplayFor(m => m.joined_time)</td>
+                        <td>@Html.DisplayFor(m => m.Football.name)</td>
+                        <td>@Html.DisplayFor(m => m.Football.summary_overall_points)</td>
+                        <td>@Html.DisplayFor(m => m.Football.joined_time)</td>
+                        <td>@Html.DisplayFor(m => m.Football.last_deadline_total_transfers)</td>
+                        <td>@Html.DisplayFor(m => m.Football.player_first_name)</td>
+                        <td>@Html.DisplayFor(m => m.Football.player_region_name)</td>
                     </tr>
                 </table>
-
-                <table class="table table-bordered table-striped" style="margin:auto; width:50% !important;">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <table class="table table-bordered table-striped" style="margin:auto; width:100% !important;">
                     <tr>
-                        <th>Private Stats</th>
+                        <th colspan="6">Private Stats | Uses some authentication</th>
                     </tr>
                     <tr>
                         <th></th>
                     </tr>
                     <tr>
-                        <td>@*@Html.DisplayFor(m => m. XXX )*@</td>
+                        <td></td>
                     </tr>
                 </table>
-
             </div>
         </div>
     </div>
