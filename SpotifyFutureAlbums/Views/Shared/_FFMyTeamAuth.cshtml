@@ -1,0 +1,39 @@
+﻿@model SpotifyFutureAlbums.ViewModels.AllAPIDetails
+
+@*Fantasy Football Auth*@
+<section class="bg-light page-section" id="services">
+    <div class="container" id="bottombottom">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2 class="section-heading text-uppercase">Authenticated Fantasy Football Team Data</h2>
+                <table class="table table-bordered table-striped">
+                    <tr>
+                        <th colspan="6">This data is returned via the Premier League API and requires cookie authenication</th>
+                    </tr>
+                    <tr>
+                        <th colspan="6">A request is made to the PL site with login details which in turn returns cookies</th>
+                    </tr>
+                    <tr>
+                        <th colspan="6">These cookies are then used as authenication for details of my team</th>
+                    </tr>
+                    <tr>
+                        <th> @Html.DisplayNameFor(model => model.MyTeamRootObject.transfers.Bank) </th>
+                        <th> @Html.DisplayNameFor(model => model.MyTeamRootObject.transfers.Cost) </th>
+                        <th> @Html.DisplayNameFor(model => model.MyTeamRootObject.transfers.Limit) </th>
+                        <th> @Html.DisplayNameFor(model => model.MyTeamRootObject.transfers.Made) </th>
+                        <th> @Html.DisplayNameFor(model => model.MyTeamRootObject.transfers.Status) </th>
+                        <th> @Html.DisplayNameFor(model => model.MyTeamRootObject.transfers.Value) </th>
+                    </tr>
+                    <tr>
+                        <td> @Html.DisplayFor(m => m.MyTeamRootObject.transfers.Bank) </td>
+                        <td> @Html.DisplayFor(m => m.MyTeamRootObject.transfers.Cost) </td>
+                        <td> @Html.DisplayFor(m => m.MyTeamRootObject.transfers.Limit) </td>
+                        <td> @Html.DisplayFor(m => m.MyTeamRootObject.transfers.Made) </td>
+                        <td> @Html.DisplayFor(m => m.MyTeamRootObject.transfers.Status) </td>
+                        <td> @Html.DisplayFor(m => m.MyTeamRootObject.transfers.Value) </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>

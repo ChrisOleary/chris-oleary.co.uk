@@ -562,6 +562,8 @@
     <Content Include="Views\Shared\_FantasyFootballAPI.cshtml" />
     <Content Include="Views\Shared\_SpotifyAPI.cshtml" />
     <Content Include="Views\Shared\_WeatherAPI.cshtml" />
+    <Content Include="Views\Shared\_FFMyTeamAuth.cshtml" />
+    <Content Include="Views\Shared\_XboxStats.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

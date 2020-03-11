@@ -14,6 +14,7 @@ using SpotifyAPI.Web.Enums; //Enums
 using SpotifyAPI.Web.Models; //Models for the JSON-responses
 using SpotifyFutureAlbums.Models;
 using PagedList;
+using SpotifyFutureAlbums.ViewModels;
 
 namespace SpotifyFutureAlbums.Controllers
 {
@@ -23,11 +24,26 @@ namespace SpotifyFutureAlbums.Controllers
 
         public async Task<ActionResult> Index()
         {
-            // <FootballObject> is used as an alias for <T> in FantasyFootball()
-            //var FootballObject = await FantasyFootball<FootballObject>();
+            //public FF stats
+            var FootballObject = await FantasyFootball<FootballObject>();
+
+            //private FF stats
             var FFstats = await GetFFStats<MyTeamRootObject>();
 
-            return View();
+            //Always Sunny
+            var AlwaysSunnyQuote = await GetAlwaysSunnyQuote<AlwaysSunnyObject>();
+
+            //Spotify
+            var spotify = new GetAccessToken();
+
+            return View(new AllAPIDetails
+            {
+                AlwaysSunny = AlwaysSunnyQuote,
+                Football = FootballObject,
+                MyTeamRootObject = FFstats
+                //Spotify = spotify
+            }
+                );
         }
         [HttpPost]
         static async Task<T> GetFFStats<T>()
@@ -45,23 +61,14 @@ namespace SpotifyFutureAlbums.Controllers
             cookiecontainer.Add(new Uri(uri), new Cookie("csrftoken", csrftoken));
             cookiecontainer.Add(new Uri(uri), new Cookie("pl_profile", pl_profile));
 
-
-            var client = new HttpClient(handler);
-
-            Console.WriteLine(handler);
-            
-            
-            
+            var client = new HttpClient(handler);        
             var result = await client.GetStringAsync(uri);
             var DeserializeObject = JsonConvert.DeserializeObject<T>(result);
 
-            Console.WriteLine(result);
             return DeserializeObject;
-        
-
         }
-       
 
+        [HttpGet]
         static async Task<T> FantasyFootball<T>()
         {
 
@@ -74,6 +81,7 @@ namespace SpotifyFutureAlbums.Controllers
 
         }
 
+        [HttpGet]
         static async Task<T> GetAlwaysSunnyQuote<T>()
         {
             string url = "http://sunnyquotes.net/q.php?random";
@@ -84,6 +92,8 @@ namespace SpotifyFutureAlbums.Controllers
             return DeserializeObject;
         }
 
+
+        //Spotify
 
         public string GetAccessToken()
         {
@@ -121,7 +131,6 @@ namespace SpotifyFutureAlbums.Controllers
             token = JsonConvert.DeserializeObject<SpotifyTokenModel>(json);
             return token.Access_token;
         }
-
 
         public string GetTrackInfo(string url)
         {

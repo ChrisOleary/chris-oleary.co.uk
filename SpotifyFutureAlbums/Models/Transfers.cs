@@ -7,11 +7,11 @@ namespace SpotifyFutureAlbums.Models
 {
     public class Transfers
     {
-        public int cost { get; set; }
-        public string status { get; set; }
-        public int limit { get; set; }
-        public int made { get; set; }
-        public int bank { get; set; }
-        public int value { get; set; }
+        public int Cost { get; set; }
+        public string Status { get; set; }
+        public int Limit { get; set; }
+        public int Made { get; set; }
+        public int Bank { get; set; }
+        public int Value { get; set; }
     }
 }

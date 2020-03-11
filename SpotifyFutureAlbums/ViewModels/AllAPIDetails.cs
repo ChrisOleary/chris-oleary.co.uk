@@ -13,6 +13,8 @@ namespace SpotifyFutureAlbums.ViewModels
 
         public FootballObject Football { get; set; }
 
+        public MyTeamRootObject MyTeamRootObject { get; set; }
+
         public TrackInfoObject Spotify { get; set; }
 
     }
