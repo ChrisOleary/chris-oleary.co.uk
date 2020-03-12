@@ -5,15 +5,33 @@
     <div class="container" id="bottombottom">
         <div class="row">
             <div class="col-lg-12 text-center">
-                <h2 class="section-heading text-uppercase">Always Sunny API</h2>
-                <table class="table table-borderless">
+                <h2 class="section-heading text-uppercase"><i class="fas fa-sun" style="color:#fed136;"></i> Always Sunny In Philadelphia <i class="fas fa-sun" style="color:#fed136;"></i></h2>
+                <h3 class="section-subheading text-muted">A random quote from a public ASIP API site http://www.sunnyquotes.net/api/</h3>
+                
+                <div id="sq-quote-wrapper">Loading..</div>
+                <div id="sq-quote-wrapper">
+                    <div class="sq-quote"></div>
+                    <div class="sq-who"></div>
+                    <div class="sq-episode"></div>
+                </div>
+
+                <table class="table table-bordered table-striped" style="margin:auto; width:100% !important;">
                     <tr>
-                        <td> @Html.DisplayFor(m => m.AlwaysSunny.sqQuote) </td>
-                        <td> @Html.DisplayFor(m => m.AlwaysSunny.sqWho) </td>
+                        <th>Quote</th>
+                        <th>Who</th>
+                        <th>Episode</th>
+                        <th>Gimmie another!</th>
+                    </tr>
+                    <tr>
+                        <td> "@Html.DisplayFor(m => m.AlwaysSunny.sqQuote)" </td>
+                        <td> - @Html.DisplayFor(m => m.AlwaysSunny.sqWho) </td>
                         <td> @Html.DisplayFor(m => m.AlwaysSunny.sqEp) </td>
+                        <td><button class="btn"><i class="fas fa-sync-alt"></i></button></td>
                     </tr>
                 </table>
             </div>
         </div>
     </div>
 </section>
+
+<script src="http://sunnyquotes.net/api/sq-api.js?id=MyElement&ep=false&click=true&speed=1500" id="sq-js" type="text/javascript" charset="utf-8"></script>
