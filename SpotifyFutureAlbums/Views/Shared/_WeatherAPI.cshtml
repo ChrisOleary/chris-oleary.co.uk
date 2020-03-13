@@ -1,12 +1,62 @@
-﻿@*Weather API*@
-<section class="page-section" id="services">
+﻿@*@model SpotifyFutureAlbums.ViewModels.AllAPIDetails*@
+<style>
+    #apiDiv {
+        padding-left: 20px;
+    }
+
+        /*#apiDiv select, #apiDiv button {
+                        font-size: 25px;
+                    }*/
+
+        #apiDiv h4 {
+            margin: 10px 0;
+        }
+
+        #apiDiv #message table {
+            width: 100%;
+            /*border: double 1px #00ffff;*/
+            /*background: #ff6a00;*/
+        }
+
+            #apiDiv #message table th {
+                text-align: left;
+                /*background: #4CAF50;*/
+            }
+</style>
+@*Weather API*@
+@*<section class="page-section" id="services">
     <div class="container" id="bottombottom">
         <div class="row">
             <div class="col-lg-12 text-center">
                 <h2 class="section-heading text-uppercase"><i class="fas fa-cloud-sun-rain" style="color:deepskyblue"></i> Weather <i class="fas fa-cloud-sun-rain" style="color:deepskyblue"></i></h2>
                 <h3 class="section-subheading text-muted">What's it like outside?</h3>
+
+                <div class="jumbotron">
+                    <h3>Choose a city below</h3>
+                    <div id="apiDiv">
+                        @using (Html.BeginForm())
+                        {
+                            foreach (var city in Model.cities)
+                            {
+                                <span>
+
+                                    @Html.RadioButtonFor(m => m.cities, city.Value) @city.Key
+
+                                </span>
+                            }
+
+                            <button class="btn btn-danger" name="submit">Submit</button>
+
+                        }
+
+                        <div id="message">@(new HtmlString(Model.apiResponse))</div>
+                    </div>
+                    <hr />
+                    @using (Html.BeginForm())
+                    {<button id="reset" class="btn btn-info" name="reset">Reset</button>}
+                </div>
             </div>
         </div>
     </div>
-</section>
+</section>*@
 

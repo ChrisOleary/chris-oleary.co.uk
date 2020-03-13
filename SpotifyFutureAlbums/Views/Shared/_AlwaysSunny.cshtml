@@ -26,7 +26,12 @@
                         <td> "@Html.DisplayFor(m => m.AlwaysSunny.sqQuote)" </td>
                         <td> - @Html.DisplayFor(m => m.AlwaysSunny.sqWho) </td>
                         <td> @Html.DisplayFor(m => m.AlwaysSunny.sqEp) </td>
-                        <td><button class="btn"><i class="fas fa-sync-alt"></i></button></td>
+                        <td>
+                            <input type="button"
+                                   value="Go Somewhere Else"
+                                   onclick=" @Url.Action("GetAlwaysSunnyQuote<T>()", "Home" ) />
+                        </td>
+                        @*<td><button class="btn"><i class="fas fa-sync-alt"></i></button></td>*@
                     </tr>
                 </table>
             </div>

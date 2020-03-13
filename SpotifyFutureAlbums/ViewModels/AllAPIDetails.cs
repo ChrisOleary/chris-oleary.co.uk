@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using SpotifyFutureAlbums.Models;
+using SpotifyFutureAlbums.Models.OpenWeatherApi;
 
 namespace SpotifyFutureAlbums.ViewModels
 {
@@ -16,6 +17,8 @@ namespace SpotifyFutureAlbums.ViewModels
         public MyTeamRootObject MyTeamRootObject { get; set; }
 
         public TrackInfoObject Spotify { get; set; }
+
+        public WeatherRootObject Weather { get; set; }
 
     }
 }

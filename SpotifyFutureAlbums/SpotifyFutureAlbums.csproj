@@ -265,7 +265,6 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\MoshIntermediateController.cs" />
     <Compile Include="GetAccessToken.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -290,6 +289,15 @@
     <Compile Include="Models\Leagues.cs" />
     <Compile Include="Models\Match.cs" />
     <Compile Include="Models\MyTeamRootObject.cs" />
+    <Compile Include="Models\OpenWeatherApi\Clouds.cs" />
+    <Compile Include="Models\OpenWeatherApi\Coord.cs" />
+    <Compile Include="Models\OpenWeatherApi\Main.cs" />
+    <Compile Include="Models\OpenWeatherApi\Rain.cs" />
+    <Compile Include="Models\OpenWeatherApi\Sys.cs" />
+    <Compile Include="Models\OpenWeatherApi\Weather.cs" />
+    <Compile Include="Models\OpenWeatherApi\WeatherRootObject.cs" />
+    <Compile Include="Models\OpenWeatherApi\Wind.cs" />
+    <Compile Include="Models\OpenWeatherApi\OpenWeatherMap.cs" />
     <Compile Include="Models\Pick.cs" />
     <Compile Include="Models\SpotifyTokenModel.cs" />
     <Compile Include="Models\Status.cs" />
@@ -519,7 +527,6 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
-    <Content Include="Views\MoshIntermediate\Index.cshtml" />
     <Content Include="scss\agency.scss" />
     <Content Include="scss\base\_mixins.scss" />
     <Content Include="scss\base\_page.scss" />

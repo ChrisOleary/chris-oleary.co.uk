@@ -18,10 +18,8 @@ using SpotifyFutureAlbums.ViewModels;
 
 namespace SpotifyFutureAlbums.Controllers
 {
-
     public class HomeController : Controller
     {
-
         public async Task<ActionResult> Index()
         {
             //public FF stats
@@ -43,8 +41,15 @@ namespace SpotifyFutureAlbums.Controllers
                 MyTeamRootObject = FFstats
                 //Spotify = spotify
             }
-                );
+            );
         }
+
+
+        //OpenWeather
+        //TODO
+
+
+        //FF PUBLIC
         [HttpPost]
         static async Task<T> GetFFStats<T>()
         {
@@ -68,6 +73,7 @@ namespace SpotifyFutureAlbums.Controllers
             return DeserializeObject;
         }
 
+        //FF AUTH
         [HttpGet]
         static async Task<T> FantasyFootball<T>()
         {
@@ -81,6 +87,7 @@ namespace SpotifyFutureAlbums.Controllers
 
         }
 
+        //ASIP
         [HttpGet]
         static async Task<T> GetAlwaysSunnyQuote<T>()
         {
@@ -92,9 +99,7 @@ namespace SpotifyFutureAlbums.Controllers
             return DeserializeObject;
         }
 
-
         //Spotify
-
         public string GetAccessToken()
         {
             SpotifyTokenModel token = new SpotifyTokenModel();
