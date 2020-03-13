@@ -29,7 +29,7 @@ namespace SpotifyFutureAlbums.Controllers
             var FFstats = await GetFFStats<MyTeamRootObject>();
 
             //Always Sunny
-            var AlwaysSunnyQuote = await GetAlwaysSunnyQuote<AlwaysSunnyObject>();
+            var AlwaysSunnyQuote = await GetAlwaysSunnyQuote();
 
             //Spotify
             var spotify = new GetAccessToken();
@@ -87,17 +87,26 @@ namespace SpotifyFutureAlbums.Controllers
 
         }
 
+        //ASIP AJAX Reload button in View
+        public async Task<PartialViewResult> GetQuote() {
+
+            var quote = await GetAlwaysSunnyQuote();
+            return PartialView("_AlwaysSunny", quote);
+        }
+
         //ASIP
         [HttpGet]
-        static async Task<T> GetAlwaysSunnyQuote<T>()
+        private async Task<AlwaysSunnyObject> GetAlwaysSunnyQuote()
         {
             string url = "http://sunnyquotes.net/q.php?random";
             var httpclient = new HttpClient();
             var result = await httpclient.GetStringAsync(url);
-            var DeserializeObject = JsonConvert.DeserializeObject<T>(result);
+            var DeserializeObject = JsonConvert.DeserializeObject<AlwaysSunnyObject>(result);
 
             return DeserializeObject;
         }
+
+
 
         //Spotify
         public string GetAccessToken()

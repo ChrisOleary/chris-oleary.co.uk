@@ -1,42 +1,41 @@
-﻿@model SpotifyFutureAlbums.ViewModels.AllAPIDetails
+﻿@model SpotifyFutureAlbums.Models.AlwaysSunnyObject
 
 @*Always Sunny API*@
-<section class="page-section" id="services">
-    <div class="container" id="bottombottom">
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <h2 class="section-heading text-uppercase"><i class="fas fa-sun" style="color:#fed136;"></i> Always Sunny In Philadelphia <i class="fas fa-sun" style="color:#fed136;"></i></h2>
-                <h3 class="section-subheading text-muted">A random quote from a public ASIP API site http://www.sunnyquotes.net/api/</h3>
-                
-                <div id="sq-quote-wrapper">Loading..</div>
-                <div id="sq-quote-wrapper">
-                    <div class="sq-quote"></div>
-                    <div class="sq-who"></div>
-                    <div class="sq-episode"></div>
-                </div>
+<div id="divTable">
+    <section class="page-section" id="services">
+        <script src="~/Scripts/jquery-3.4.1.min.js" type="text/javascript"></script>
+        <script src="~/Scripts/jquery.unobtrusive-ajax.min.js" type="text/javascript"></script>
+        <div class="container" id="bottombottom">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading text-uppercase"><i class="fas fa-sun" style="color:#fed136;"></i> Always Sunny In Philadelphia <i class="fas fa-sun" style="color:#fed136;"></i></h2>
+                    <h3 class="section-subheading text-muted">A random quote from a public ASIP API site http://www.sunnyquotes.net/api/</h3>
+                    <table class="table table-bordered table-striped" style="margin:auto; width:100% !important;">
+                        <tr>
+                            <th>Quote</th>
+                            <th>Who</th>
+                            <th>Episode</th>
+                            <th>Gimmie another!</th>
+                        </tr>
+                        <tr>
+                            <td>"@Html.DisplayFor(m => m.sqQuote)" </td>
+                            <td> @Html.DisplayFor(m => m.sqWho) </td>
+                            <td> @Html.DisplayFor(m => m.sqEp) </td>
+                            <td>
+                                @* This reloads the api request from the HomeController using AJAX *@
+                                @Ajax.ActionLink(" ", "GetQuote",  null, new AjaxOptions 
+                                                 { HttpMethod = "GET", 
+                                                   InsertionMode = InsertionMode.Replace, 
+                                                   UpdateTargetId = "divTable" }, new { @class = "btn btn-success", @id = "myActionLinkId" })
+                                <script>$("#myActionLinkId").prepend("<i class='fas fa-sync-alt'></i> ");</script>
 
-                <table class="table table-bordered table-striped" style="margin:auto; width:100% !important;">
-                    <tr>
-                        <th>Quote</th>
-                        <th>Who</th>
-                        <th>Episode</th>
-                        <th>Gimmie another!</th>
-                    </tr>
-                    <tr>
-                        <td> "@Html.DisplayFor(m => m.AlwaysSunny.sqQuote)" </td>
-                        <td> - @Html.DisplayFor(m => m.AlwaysSunny.sqWho) </td>
-                        <td> @Html.DisplayFor(m => m.AlwaysSunny.sqEp) </td>
-                        <td>
-                            <input type="button"
-                                   value="Go Somewhere Else"
-                                   onclick=" @Url.Action("GetAlwaysSunnyQuote<T>()", "Home" ) />
-                        </td>
-                        @*<td><button class="btn"><i class="fas fa-sync-alt"></i></button></td>*@
-                    </tr>
-                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+</div>
 
 <script src="http://sunnyquotes.net/api/sq-api.js?id=MyElement&ep=false&click=true&speed=1500" id="sq-js" type="text/javascript" charset="utf-8"></script>
