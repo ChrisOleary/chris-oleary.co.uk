@@ -328,6 +328,7 @@
     <Content Include="img\about\2.jpg" />
     <Content Include="img\about\3.jpg" />
     <Content Include="img\about\4.jpg" />
+    <Content Include="img\loading.gif" />
     <Content Include="img\header-bg.jpg" />
     <Content Include="img\logos\creative-market.jpg" />
     <Content Include="img\logos\designmodo.jpg" />
@@ -388,6 +389,7 @@
     <Content Include="package-lock.json" />
     <Content Include="package.json" />
     <Content Include="README.md" />
+    <Content Include="img\giphy.webp" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jqBootstrapValidation.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -573,6 +575,7 @@
     <Content Include="Views\Shared\_WeatherAPI.cshtml" />
     <Content Include="Views\Shared\_FFMyTeamAuth.cshtml" />
     <Content Include="Views\Shared\_XboxStats.cshtml" />
+    <Content Include="Views\Shared\_WebScraper.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

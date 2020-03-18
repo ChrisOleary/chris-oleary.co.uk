@@ -48,6 +48,25 @@ namespace SpotifyFutureAlbums.Controllers
         //OpenWeather
         //TODO
 
+        // Webscrapper
+        [HttpPost]
+        public string GetUrlSource(string url)
+        {
+            url = url.Substring(0, 4) != "http" ? "http://" + url : url;
+            string htmlCode = "";
+            using (WebClient client = new WebClient())
+            {
+                try
+                {
+                    htmlCode = client.DownloadString(url);
+                }
+                catch (Exception ex)
+                {
+
+                }
+            }
+            return htmlCode;
+        }
 
         //FF PUBLIC
         [HttpPost]
