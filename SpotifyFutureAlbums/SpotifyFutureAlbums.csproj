@@ -269,26 +269,26 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Album.cs" />
-    <Compile Include="Models\AlwaysSunnyObject.cs" />
-    <Compile Include="Models\Artist.cs" />
-    <Compile Include="Models\Artist2.cs" />
-    <Compile Include="Models\Chip.cs" />
-    <Compile Include="Models\Classic.cs" />
-    <Compile Include="Models\Cup.cs" />
-    <Compile Include="Models\ExternalIds.cs" />
-    <Compile Include="Models\ExternalUrls.cs" />
-    <Compile Include="Models\ExternalUrls2.cs" />
-    <Compile Include="Models\ExternalUrls3.cs" />
-    <Compile Include="Models\ExternalUrls4.cs" />
-    <Compile Include="Models\FFPostLoginDetails.cs" />
-    <Compile Include="Models\FootballObject.cs" />
-    <Compile Include="Models\Image.cs" />
-    <Compile Include="Models\IndexModel.cs" />
-    <Compile Include="Models\Item.cs" />
-    <Compile Include="Models\Leagues.cs" />
-    <Compile Include="Models\Match.cs" />
-    <Compile Include="Models\MyTeamRootObject.cs" />
+    <Compile Include="Models\Spotify\Album.cs" />
+    <Compile Include="Models\ASIP\AlwaysSunnyObject.cs" />
+    <Compile Include="Models\Spotify\Artist.cs" />
+    <Compile Include="Models\Spotify\Artist2.cs" />
+    <Compile Include="Models\FantasyFootball\Chip.cs" />
+    <Compile Include="Models\FantasyFootball\Classic.cs" />
+    <Compile Include="Models\FantasyFootball\Cup.cs" />
+    <Compile Include="Models\FantasyFootball\ExternalIds.cs" />
+    <Compile Include="Models\Spotify\ExternalUrls.cs" />
+    <Compile Include="Models\Spotify\ExternalUrls2.cs" />
+    <Compile Include="Models\Spotify\ExternalUrls3.cs" />
+    <Compile Include="Models\Spotify\ExternalUrls4.cs" />
+    <Compile Include="Models\FantasyFootball\FFPostLoginDetails.cs" />
+    <Compile Include="Models\FantasyFootball\FootballObject.cs" />
+    <Compile Include="Models\Spotify\Image.cs" />
+    <Compile Include="Models\Spotify\IndexModel.cs" />
+    <Compile Include="Models\Spotify\Item.cs" />
+    <Compile Include="Models\FantasyFootball\Leagues.cs" />
+    <Compile Include="Models\FantasyFootball\Match.cs" />
+    <Compile Include="Models\FantasyFootball\MyTeamRootObject.cs" />
     <Compile Include="Models\OpenWeatherApi\Clouds.cs" />
     <Compile Include="Models\OpenWeatherApi\Coord.cs" />
     <Compile Include="Models\OpenWeatherApi\Main.cs" />
@@ -298,14 +298,15 @@
     <Compile Include="Models\OpenWeatherApi\WeatherRootObject.cs" />
     <Compile Include="Models\OpenWeatherApi\Wind.cs" />
     <Compile Include="Models\OpenWeatherApi\OpenWeatherMap.cs" />
-    <Compile Include="Models\Pick.cs" />
-    <Compile Include="Models\SpotifyTokenModel.cs" />
-    <Compile Include="Models\Status.cs" />
-    <Compile Include="Models\TrackInfoObject.cs" />
-    <Compile Include="Models\Tracks.cs" />
-    <Compile Include="Models\Transfers.cs" />
+    <Compile Include="Models\FantasyFootball\Pick.cs" />
+    <Compile Include="Models\Spotify\SpotifyTokenModel.cs" />
+    <Compile Include="Models\FantasyFootball\Status.cs" />
+    <Compile Include="Models\Spotify\TrackInfoObject.cs" />
+    <Compile Include="Models\Spotify\Tracks.cs" />
+    <Compile Include="Models\FantasyFootball\Transfers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\AllAPIDetails.cs" />
+    <Compile Include="ViewModels\WeatherViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\agency.css" />
@@ -385,7 +386,6 @@
     <Content Include=".browserslistrc" />
     <Content Include=".gitignore" />
     <Content Include=".travis.yml" />
-    <Content Include="LICENSE" />
     <Content Include="package-lock.json" />
     <Content Include="package.json" />
     <Content Include="README.md" />
