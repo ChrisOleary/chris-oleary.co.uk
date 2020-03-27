@@ -32,19 +32,100 @@ namespace SpotifyFutureAlbums.Controllers
             //Always Sunny
             var AlwaysSunnyQuote = await GetAlwaysSunnyQuote();
 
+            //var WeatherDetail = await WeatherDetail<WeatherRootObject>();
+
             //Spotify
-            var spotify = new GetAccessToken();
+            //var spotify = new GetAccessToken();
 
             return View(new AllAPIDetails
             {
                 AlwaysSunny = AlwaysSunnyQuote,
                 Football = FootballObject,
-                MyTeamRootObject = FFstats
+                MyTeamRootObject = FFstats,
+                //Weather = WeatherDetail
                 //Spotify = spotify
             }
             );
         }
 
+        // Webscrapper
+        [HttpPost]
+        public string GetUrlSource(string url)
+        {
+            url = url.Substring(0, 4) != "http" ? "http://" + url : url;
+            string htmlCode = "";
+            using (WebClient client = new WebClient())
+            {
+                try
+                {
+                    htmlCode = client.DownloadString(url);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error: " + ex.Message);
+                }
+            }
+            return htmlCode;
+        }
+
+        //Fantasy Football Authenticated API
+        [HttpPost]
+        static async Task<T> GetFFStats<T>()
+        {
+            //TODO: create POST method to retrieve tokens on initial request.
+            //Hardcoded for simplicity
+            var csrftoken = "E2G7bfPMj0qfr9lSzCQvsCZzW6rDV1UXQAZxVVz731Q5y7ESBK663zPqxx630FBc";
+            var pl_profile = "eyJzIjogIld6SXNNVE16TWpnek1EVmQ6MWpBR0FWOnF6R0lyMVFheDh3VmRpWUhrcERLYTFrSnEwRSIsICJ1IjogeyJpZCI6IDEzMzI4MzA1LCAiZm4iOiAiQ2hyaXMiLCAibG4iOiAiTydsZWFyeSIsICJmYyI6IG51bGx9fQ==";
+
+            // this url requires the authentication
+            var uri = "https://fantasy.premierleague.com/api/my-team/186809";
+            var cookiecontainer = new CookieContainer();
+
+            // Gets the cookie container used to store server cookies by the handler
+            var handler = new HttpClientHandler();
+            handler.CookieContainer = cookiecontainer;
+            cookiecontainer.Add(new Uri(uri), new Cookie("csrftoken", csrftoken));
+            cookiecontainer.Add(new Uri(uri), new Cookie("pl_profile", pl_profile));
+
+            var client = new HttpClient(handler);        
+            var result = await client.GetStringAsync(uri);
+            var DeserializeObject = JsonConvert.DeserializeObject<T>(result);
+
+            return DeserializeObject;
+        }
+
+        //Fantasy Football Public API
+        [HttpGet]
+        static async Task<T> FantasyFootball<T>()
+        {
+
+            string url = "https://fantasy.premierleague.com/api/entry/186809/";
+            var client = new HttpClient();
+            var result = await client.GetStringAsync(url);
+            var DeserializeObject = JsonConvert.DeserializeObject<T>(result);
+
+            return DeserializeObject;
+
+        }
+
+        //Always Sunny AJAX Reload button in View
+        public async Task<PartialViewResult> GetQuote() {
+
+            var quote = await GetAlwaysSunnyQuote();
+            return PartialView("_AlwaysSunny", quote);
+        }
+
+        //Always Sunny Public API
+        [HttpGet]
+        private async Task<AlwaysSunnyObject> GetAlwaysSunnyQuote()
+        {
+            string url = "http://sunnyquotes.net/q.php?random";
+            var httpclient = new HttpClient();
+            var result = await httpclient.GetStringAsync(url);
+            var DeserializeObject = JsonConvert.DeserializeObject<AlwaysSunnyObject>(result);
+
+            return DeserializeObject;
+        }
 
         //OpenWeather
         //TODO
@@ -88,88 +169,6 @@ namespace SpotifyFutureAlbums.Controllers
                 return jsonstring;
             }
         }
-
-
-        // Webscrapper
-        [HttpPost]
-        public string GetUrlSource(string url)
-        {
-            url = url.Substring(0, 4) != "http" ? "http://" + url : url;
-            string htmlCode = "";
-            using (WebClient client = new WebClient())
-            {
-                try
-                {
-                    htmlCode = client.DownloadString(url);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("Error: " + ex.Message);
-                }
-            }
-            return htmlCode;
-        }
-
-        //FF AUTHENICATED
-        [HttpPost]
-        static async Task<T> GetFFStats<T>()
-        {
-            //TODO: create POST method to retrieve tokens on initial request.
-            //Hardcoded for simplicity
-            var csrftoken = "E2G7bfPMj0qfr9lSzCQvsCZzW6rDV1UXQAZxVVz731Q5y7ESBK663zPqxx630FBc";
-            var pl_profile = "eyJzIjogIld6SXNNVE16TWpnek1EVmQ6MWpBR0FWOnF6R0lyMVFheDh3VmRpWUhrcERLYTFrSnEwRSIsICJ1IjogeyJpZCI6IDEzMzI4MzA1LCAiZm4iOiAiQ2hyaXMiLCAibG4iOiAiTydsZWFyeSIsICJmYyI6IG51bGx9fQ==";
-
-            // this url requires the authentication
-            var uri = "https://fantasy.premierleague.com/api/my-team/186809";
-            var cookiecontainer = new CookieContainer();
-
-            // Gets the cookie container used to store server cookies by the handler
-            var handler = new HttpClientHandler();
-            handler.CookieContainer = cookiecontainer;
-            cookiecontainer.Add(new Uri(uri), new Cookie("csrftoken", csrftoken));
-            cookiecontainer.Add(new Uri(uri), new Cookie("pl_profile", pl_profile));
-
-            var client = new HttpClient(handler);        
-            var result = await client.GetStringAsync(uri);
-            var DeserializeObject = JsonConvert.DeserializeObject<T>(result);
-
-            return DeserializeObject;
-        }
-
-        //FF PUBLIC
-        [HttpGet]
-        static async Task<T> FantasyFootball<T>()
-        {
-
-            string url = "https://fantasy.premierleague.com/api/entry/186809/";
-            var client = new HttpClient();
-            var result = await client.GetStringAsync(url);
-            var DeserializeObject = JsonConvert.DeserializeObject<T>(result);
-
-            return DeserializeObject;
-
-        }
-
-        //ASIP AJAX Reload button in View
-        public async Task<PartialViewResult> GetQuote() {
-
-            var quote = await GetAlwaysSunnyQuote();
-            return PartialView("_AlwaysSunny", quote);
-        }
-
-        //ASIP PUBLIC
-        [HttpGet]
-        private async Task<AlwaysSunnyObject> GetAlwaysSunnyQuote()
-        {
-            string url = "http://sunnyquotes.net/q.php?random";
-            var httpclient = new HttpClient();
-            var result = await httpclient.GetStringAsync(url);
-            var DeserializeObject = JsonConvert.DeserializeObject<AlwaysSunnyObject>(result);
-
-            return DeserializeObject;
-        }
-
-
 
         //Spotify
         [HttpGet]

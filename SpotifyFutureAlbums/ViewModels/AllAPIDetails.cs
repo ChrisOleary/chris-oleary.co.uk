@@ -18,7 +18,9 @@ namespace SpotifyFutureAlbums.ViewModels
 
         public TrackInfoObject Spotify { get; set; }
 
-        public WeatherRootObject Weather { get; set; }
+        //public WeatherRootObject Weather { get; set; }
+
+        public ResultViewModel Weather { get; set; }
 
     }
 }

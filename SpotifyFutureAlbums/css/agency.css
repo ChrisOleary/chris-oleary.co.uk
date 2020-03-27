@@ -171,13 +171,14 @@ img::-moz-selection {
 }
 
 header.masthead {
-  text-align: center;
-  color: white;
-  background-image: url("../img/header-bg.jpg");
-  background-repeat: no-repeat;
-  background-attachment: scroll;
-  background-position: center center;
-  background-size: cover;
+    background-image: url("../img/laptop.jpg");
+    height: 100vh;
+    text-align: center;
+    color: white;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-position: center center;
+    background-size: cover;
 }
 
 header.masthead .intro-text {
