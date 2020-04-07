@@ -265,6 +265,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MoshController.cs" />
     <Compile Include="GetAccessToken.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -309,8 +310,6 @@
     <Compile Include="ViewModels\WeatherViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\agency.css" />
-    <Content Include="Content\agency.min.css" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
@@ -570,7 +569,6 @@
     <Content Include="vendor\fontawesome-free\webfonts\fa-solid-900.woff2" />
     <Content Include="vendor\jquery\jquery.min.map" />
     <Content Include="vendor\jquery\jquery.slim.min.map" />
-    <Content Include="Views\Shared\_Header.cshtml" />
     <Content Include="Views\Shared\_AlwaysSunny.cshtml" />
     <Content Include="Views\Shared\_FantasyFootballAPI.cshtml" />
     <Content Include="Views\Shared\_SpotifyAPI.cshtml" />
@@ -578,6 +576,7 @@
     <Content Include="Views\Shared\_FFMyTeamAuth.cshtml" />
     <Content Include="Views\Shared\_XboxStats.cshtml" />
     <Content Include="Views\Shared\_WebScraper.cshtml" />
+    <Content Include="Views\Mosh\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
