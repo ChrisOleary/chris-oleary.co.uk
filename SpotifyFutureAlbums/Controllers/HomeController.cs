@@ -10,6 +10,7 @@ using SpotifyFutureAlbums.Models;
 using SpotifyFutureAlbums.ViewModels;
 using System.Web.Script.Serialization;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace SpotifyFutureAlbums.Controllers
 {
@@ -95,7 +96,18 @@ namespace SpotifyFutureAlbums.Controllers
             string url = "https://fantasy.premierleague.com/api/entry/186809/";
             var client = new HttpClient();
             var result = await client.GetStringAsync(url);
-            var DeserializeObject = JsonConvert.DeserializeObject<T>(result);
+
+            var errors = new List<string>();
+            var DeserializeObject = JsonConvert.DeserializeObject<T>(result, new JsonSerializerSettings
+                {
+                    NullValueHandling = NullValueHandling.Include,
+                    Error = delegate (object sender, Newtonsoft.Json.Serialization.ErrorEventArgs earg)
+                    {
+                        errors.Add(earg.ErrorContext.Member.ToString());
+                        earg.ErrorContext.Handled = true;
+                    }
+                }
+            );
 
             return DeserializeObject;
 
