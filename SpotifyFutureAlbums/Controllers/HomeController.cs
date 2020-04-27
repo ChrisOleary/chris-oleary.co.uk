@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Http;
@@ -7,15 +6,10 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using Newtonsoft.Json;
-using SpotifyAPI.Web; //Base Namespace
-using SpotifyAPI.Web.Auth;
-using SpotifyAPI.Web.Enums; //Enums
-using SpotifyAPI.Web.Models; //Models for the JSON-responses
 using SpotifyFutureAlbums.Models;
-using PagedList;
 using SpotifyFutureAlbums.ViewModels;
 using System.Web.Script.Serialization;
+using Newtonsoft.Json;
 
 namespace SpotifyFutureAlbums.Controllers
 {
@@ -27,10 +21,10 @@ namespace SpotifyFutureAlbums.Controllers
             var FootballObject = await FantasyFootball<FootballObject>();
 
             //private FF stats
-            var FFstats = await GetFFStats<MyTeamRootObject>();
+            //var FFstats = await GetFFStats<MyTeamRootObject>();
 
             //Always Sunny
-            var AlwaysSunnyQuote = await GetAlwaysSunnyQuote();
+            //var AlwaysSunnyQuote = await GetAlwaysSunnyQuote();
 
             //var WeatherDetail = await WeatherDetail<WeatherRootObject>();
 
@@ -39,9 +33,9 @@ namespace SpotifyFutureAlbums.Controllers
 
             return View(new AllAPIDetails
             {
-                AlwaysSunny = AlwaysSunnyQuote,
-                Football = FootballObject,
-                MyTeamRootObject = FFstats,
+                //AlwaysSunny = AlwaysSunnyQuote,
+                Football = FootballObject
+                //MyTeamRootObject = FFstats,
                 //Weather = WeatherDetail
                 //Spotify = spotify
             }
@@ -97,8 +91,7 @@ namespace SpotifyFutureAlbums.Controllers
         //Fantasy Football Public API
         [HttpGet]
         static async Task<T> FantasyFootball<T>()
-        {
-
+        { 
             string url = "https://fantasy.premierleague.com/api/entry/186809/";
             var client = new HttpClient();
             var result = await client.GetStringAsync(url);

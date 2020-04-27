@@ -1,30 +1,35 @@
 ﻿<section class="page-section bg-light" id="services">
     <div class="container">
         <div class="row">
-            <div class="col-lg-12">
-                <h2 class="section-heading text-uppercase"><i class="fas fa-wrench" style="color:#808080;"></i> Web Scraper <i class="fas fa-wrench" style="color:#808080;"></i></h2>
-                <h3 class="section-subheading text-muted">You can enter any URL and this webscraper will go the website, retieve the emails and then display them on screen.</h3>
-             
-              
-                <div class="row">
-                    <div class="col-md-4 col-lg-2">
-                        <input id="urlInput" type="text" placeholder="Enter URL" />
-                        <button class="btn btn-success btn-block" id="submit">Submit</button>
-                        <button class="btn btn-danger btn-block" id="reset">Reset</button>
+            <div class="col-lg-12 text-center">
+                <h2 class="section-heading text-uppercase"> Email Web Scraper <i class="fas fa-wrench" style="color:#808080;"></i></h2>
+                <h3 class="section-subheading text-muted">Enter any URL and scrape the site for email addresses. </h3>
+            </div>
+            <div class="col-lg-12 text-center">
+                <form id="contactForm" name="sentMessage">
+                    <div class="row">
+                        <div class="col-lg-2">
+
+                        </div>
+                        <div class="col-lg-5">
+                            <div class="form-group text-center">
+                                <input class="form-control" id="urlInput" type="text" placeholder="URL..." required="required" data-validation-required-message="Please enter a URL.">
+                            </div>
+                        </div>
+                        <div class="col-lg-5 text-center">
+                            <button id="submit" class="btn btn-primary btn-lg text-uppercase">Scrape</button>
+                        </div>          
+                        <div class="col-lg-12 text-center">
+                            <div id="twoColumn">
+                                <div></div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                @*<div class="textAlignCenter">
-                    <img src="~/img/loading.gif" style="width:50px; display:none;" />
-                </div>
-                <small><strong>Example:</strong> https://smasltd.com/contact-smas-worksafe </small>
-                <div id="twoColumn" style="margin-top:10px;">
-                    <div></div>
-                    <div></div>
-                </div>*@
+                </form>
             </div>
         </div>
     </div>
-</section>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script>
         $(document).ready(function () {
@@ -63,7 +68,7 @@
 
                 $("#twoColumn > div").first().html(email);
 
-               
+
             }
 
             $(document).ajaxStart(function () {
@@ -95,3 +100,4 @@
         });
     </script>
 
+</section>
