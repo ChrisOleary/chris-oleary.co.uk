@@ -1,75 +1,47 @@
 ﻿@model SpotifyFutureAlbums.ViewModels.AllAPIDetails
-<style>
-    #apiDiv {
-        padding-left: 20px;
-    }
-
-        /*#apiDiv select, #apiDiv button {
-                        font-size: 25px;
-                    }*/
-
-        #apiDiv h4 {
-            margin: 10px 0;
-        }
-
-        #apiDiv #message table {
-            width: 100%;
-            /*border: double 1px #00ffff;*/
-            /*background: #ff6a00;*/
-        }
-
-            #apiDiv #message table th {
-                text-align: left;
-                /*background: #4CAF50;*/
-            }
-</style>
 @*Weather API*@
-<section class="page-section" id="team">
+<section class="page-section bg-light" id="team">
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
-                <h2 class="section-heading text-uppercase"><i class="fas fa-cloud-sun-rain" style="color:deepskyblue"></i> Weather Forecast<i class="fas fa-cloud-sun-rain" style="color:deepskyblue"></i></h2>
-                <div>
-                    <strong>City Name: </strong><input id="txtCity" type="text" />
-                    <br />
-                    <br />
-                    <button class="btn btn-info" id="btnSubmit">Get Weather Forecast</button>
-                </div>
-                <div>
-                    <table class="table table-bordered table-striped">
+                <h2 class="section-heading text-uppercase"> Weather Forecast <i class="fas fa-cloud-sun-rain" style="color:deepskyblue"></i></h2>
+            </div>
+        </div>
+        <div class="row text-center">
+            <div class="col-lg-2">
+            </div>
+            <div class="col-lg-4">
+                <input class="form-control" id="txtCity" placeholder="CityName: " type="text" />
+            </div>
+            <div class="col-lg-4">
+                <button class="btn btn-dark" id="btnSubmit">Get Weather Forecast</button>
+            </div>
+            <div class="col-lg-2">
+            </div>
+        </div>
+        <div class="row">
+            <div class="container my-5">
+                <div class="col-lg-12 text-center">
+                    <table class="table table-bordered table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th><i class="fas fa-bolt"></i></th>
+                                <th>City</th>
+                                <th>Country</th>
+                                <th>Description</th>
+                                <th>°C</th>
+                                <th>Min</th>
+                                <th>Max</th>
+                            </tr>
+                        </thead>
                         <tr>
-                            <td>Weather Symbol Icon <img id="imgWeatherIconUrl" src="" title="Weather Icon" /></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <strong>City: </strong>
-                                <span id="lblCity"></span>  ,
-                                <span id="lblCountry"></span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <strong>Latitude: </strong>
-                                <label id="lblLat"></label><br />
-                                <strong>Longitude: </strong>
-                                <label id="lblLon"></label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <strong>Description:</strong>
-                                <label id="lblDescription"></label><br />
-                                <strong>Humidity:</strong>
-                                <label id="lblHumidity"></label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Temperature (Feels Like)<label id="lblTempFeelsLike"></label><br />
-                                Temperature <label id="lblTemp"></label><br />
-                                Temperature (Min)<label id="lblTempMin"></label><br />
-                                Temperature (Max)<label id="lblTempMax"></label><br />
-                            </td>
+                            <td><img id="imgWeatherIconUrl" /></td>
+                            <td id="lblCity"></td>
+                            <td id="lblCountry"></td>
+                            <td id="lblDescription"></td>
+                            <td id="lblTemp"></td>
+                            <td id="lblTempMin"></td>
+                            <td id="lblTempMax"></td>
                         </tr>
                     </table>
                 </div>
@@ -85,7 +57,7 @@
         var cityname = $("#txtCity").val();
         if (cityname.length > 0) {
             $.ajax({
-                url: "http://localhost:52189/Home/WeatherDetail?City=" + cityname,
+                url: "/Home/WeatherDetail?City=" + cityname,
                 type: "POST",
                 success: function (rsltval) {
                     var data = JSON.parse(rsltval);
