@@ -20,7 +20,11 @@ namespace SpotifyFutureAlbums.Models
         public string player_region_name { get; set; }
         public string player_region_iso_code_short { get; set; }
         public string player_region_iso_code_long { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:N0}")]
         public int summary_overall_points { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:N0}")]
         public int summary_overall_rank { get; set; }
         public int summary_event_points { get; set; }
         public int summary_event_rank { get; set; }

@@ -5,24 +5,34 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
-                <h2 class="section-heading text-uppercase"><i class="fas fa-futbol"></i> My Team Stats <i class="fas fa-futbol"></i></h2>
-                <h3 class="section-subheading text-muted">Live stats direct from the Premier Leagues Public API https://fantasy.premierleague.com/my-team</h3>
+                <h2 class="section-heading text-uppercase"> My Team Stats <i class="fas fa-futbol"></i></h2>
+                <h3 class="section-subheading text-muted">Live stats direct from the <a href="https://fantasy.premierleague.com/my-team" target="_blank">Premier Leagues Public API</a></h3>
+            </div>
+            <div class="col-lg-12 text-center"> 
+                <table class="table table-bordered table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Manager (Me)</th>
+                            <th>First Name</th>
+                            <th>Overall Points</th>
+                            <th>Overall Position</th>
+                            <th>Total Transfers</th>
+                            <th>Region</th>
 
-                <table class="table table-bordered table-striped" style="margin:auto; width:100% !important;">
-                    <tr>
-                        <th>Manager (Me)</th>
-                        <th>First Name</th>
-                        <th>Overall Points</th>
-                        
-                    </tr>
+                        </tr>
+                    </thead>
                     <tr>
                         <td>@Html.DisplayFor(m => m.Football.name)</td>
                         <td>@Html.DisplayFor(m => m.Football.player_first_name)</td>
                         <td>@Html.DisplayFor(m => m.Football.summary_overall_points)</td>
-                  
+                        <td>@Html.DisplayFor(m => m.Football.summary_overall_rank)</td>
+                        <td>@Html.DisplayFor(m => m.Football.last_deadline_total_transfers)</td>
+                        <td>@Html.DisplayFor(m => m.Football.player_region_name)</td>
+
                     </tr>
                 </table>
-                <table class="table table-bordered table-striped" style="margin:auto; width:100% !important;">
+            </div>
+                @*<table class="table table-bordered table-striped" style="margin:auto; width:100% !important;">
                     <tr>
                         <th>Joined</th>
                         <th>Total Transfers</th>
@@ -33,7 +43,7 @@
                         <td>@Html.DisplayFor(m => m.Football.last_deadline_total_transfers)</td>
                         <td>@Html.DisplayFor(m => m.Football.player_region_name)</td>
                     </tr>
-                </table>
+                </table>*@
             </div>
         </div>
     </div>

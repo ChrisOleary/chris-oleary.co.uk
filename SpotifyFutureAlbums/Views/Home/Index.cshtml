@@ -1,24 +1,16 @@
 ﻿@model SpotifyFutureAlbums.ViewModels.AllAPIDetails
 
-<section class="page-section" id="">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 text-center">
-
                 @{ Html.RenderPartial("_WebScraper"); }
 
-                @*@{ Html.RenderPartial("_FantasyFootballAPI"); }
+                @{ Html.RenderPartial("_FantasyFootballAPI"); }
 
                 @{ Html.RenderPartial("_FFMyTeamAuth"); }
 
                 @Html.Partial("_AlwaysSunny", Model.AlwaysSunny)
 
-                @{ Html.RenderPartial("_WeatherAPI"); }*@
+                @{ Html.RenderPartial("_WeatherAPI"); }
 
                 @*@{ Html.RenderPartial("_XboxStats"); }*@
 
                 @*@{ Html.RenderPartial("_SpotifyAPI"); }*@
-            </div>
-        </div>
-    </div>
-</section>
+          

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Http;
@@ -7,15 +6,11 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using Newtonsoft.Json;
-using SpotifyAPI.Web; //Base Namespace
-using SpotifyAPI.Web.Auth;
-using SpotifyAPI.Web.Enums; //Enums
-using SpotifyAPI.Web.Models; //Models for the JSON-responses
 using SpotifyFutureAlbums.Models;
-using PagedList;
 using SpotifyFutureAlbums.ViewModels;
 using System.Web.Script.Serialization;
+using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace SpotifyFutureAlbums.Controllers
 {
@@ -32,17 +27,18 @@ namespace SpotifyFutureAlbums.Controllers
             //Always Sunny
             var AlwaysSunnyQuote = await GetAlwaysSunnyQuote();
 
-            //var WeatherDetail = await WeatherDetail<WeatherRootObject>();
+            //Weather Api
+            //var WeatherDetail = new WeatherDetail(city);
 
             //Spotify
             //var spotify = new GetAccessToken();
 
             return View(new AllAPIDetails
             {
-                AlwaysSunny = AlwaysSunnyQuote,
-                Football = FootballObject,
-                MyTeamRootObject = FFstats,
-                //Weather = WeatherDetail
+                 Football = FootballObject,
+                 MyTeamRootObject = FFstats,
+                 AlwaysSunny = AlwaysSunnyQuote
+                 //Weather = WeatherDetail
                 //Spotify = spotify
             }
             );
@@ -73,7 +69,7 @@ namespace SpotifyFutureAlbums.Controllers
         static async Task<T> GetFFStats<T>()
         {
             //TODO: create POST method to retrieve tokens on initial request.
-            //Hardcoded for simplicity
+            //Hardcoded for testing
             var csrftoken = "E2G7bfPMj0qfr9lSzCQvsCZzW6rDV1UXQAZxVVz731Q5y7ESBK663zPqxx630FBc";
             var pl_profile = "eyJzIjogIld6SXNNVE16TWpnek1EVmQ6MWpBR0FWOnF6R0lyMVFheDh3VmRpWUhrcERLYTFrSnEwRSIsICJ1IjogeyJpZCI6IDEzMzI4MzA1LCAiZm4iOiAiQ2hyaXMiLCAibG4iOiAiTydsZWFyeSIsICJmYyI6IG51bGx9fQ==";
 
@@ -97,12 +93,22 @@ namespace SpotifyFutureAlbums.Controllers
         //Fantasy Football Public API
         [HttpGet]
         static async Task<T> FantasyFootball<T>()
-        {
-
+        { 
             string url = "https://fantasy.premierleague.com/api/entry/186809/";
             var client = new HttpClient();
             var result = await client.GetStringAsync(url);
-            var DeserializeObject = JsonConvert.DeserializeObject<T>(result);
+
+            var errors = new List<string>();
+            var DeserializeObject = JsonConvert.DeserializeObject<T>(result, new JsonSerializerSettings
+                {
+                    NullValueHandling = NullValueHandling.Include,
+                    Error = delegate (object sender, Newtonsoft.Json.Serialization.ErrorEventArgs earg)
+                    {
+                        errors.Add(earg.ErrorContext.Member.ToString());
+                        earg.ErrorContext.Handled = true;
+                    }
+                }
+            );
 
             return DeserializeObject;
 
@@ -130,41 +136,52 @@ namespace SpotifyFutureAlbums.Controllers
         //OpenWeather
         //TODO
         [HttpPost]
-        public String WeatherDetail(string City)
+        public string WeatherDetail(string City)
         {
 
             //Assign API KEY which received from OPENWEATHERMAP.ORG  
             string appId = "d8c2be690a8086d8dd04a6cf4e6df6f5";
 
             //API path with CITY parameter and other parameters.  
-            string url = string.Format("http://api.openweathermap.org/data/2.5/weather?q={0}&units=metric&cnt=1&APPID={1}", City, appId);
+            string url = string.Format("https://api.openweathermap.org/data/2.5/weather?q={0}&units=metric&cnt=1&APPID={1}", City, appId);
+
+            var jsonstring = "";
 
             using (WebClient client = new WebClient())
             {
-                string json = client.DownloadString(url);
+                try
+                {
+                    string json = client.DownloadString(url);
 
-                //Converting to OBJECT from JSON string.  
-                WeatherRootObject weatherInfo = (new JavaScriptSerializer()).Deserialize<WeatherRootObject>(json);
+                    //Converting to OBJECT from JSON string.  
+                    WeatherRootObject weatherInfo = (new JavaScriptSerializer()).Deserialize<WeatherRootObject>(json);
 
-                //Special VIEWMODEL design to send only required fields not all fields which received from   
-                //www.openweathermap.org api  
-                ResultViewModel rslt = new ResultViewModel();
+                    //Special VIEWMODEL design to send only required fields not all fields which received from   
+                    //www.openweathermap.org api  
+                    ResultViewModel rslt = new ResultViewModel();
 
-                rslt.Country = weatherInfo.sys.country;
-                rslt.City = weatherInfo.name;
-                rslt.Lat = Convert.ToString(weatherInfo.coord.lat);
-                rslt.Lon = Convert.ToString(weatherInfo.coord.lon);
-                rslt.Description = weatherInfo.weather[0].description;
-                rslt.Humidity = Convert.ToString(weatherInfo.main.humidity);
-                rslt.Temp = Convert.ToString(weatherInfo.main.temp);
-                rslt.TempFeelsLike = Convert.ToString(weatherInfo.main.feels_like);
-                rslt.TempMax = Convert.ToString(weatherInfo.main.temp_max);
-                rslt.TempMin = Convert.ToString(weatherInfo.main.temp_min);
-                rslt.WeatherIcon = weatherInfo.weather[0].icon;
+                    rslt.Country = weatherInfo.sys.country;
+                    rslt.City = weatherInfo.name;
+                    rslt.Lat = Convert.ToString(weatherInfo.coord.lat);
+                    rslt.Lon = Convert.ToString(weatherInfo.coord.lon);
+                    rslt.Description = weatherInfo.weather[0].description;
+                    rslt.Humidity = Convert.ToString(weatherInfo.main.humidity);
+                    rslt.Temp = Convert.ToString(weatherInfo.main.temp);
+                    rslt.TempFeelsLike = Convert.ToString(weatherInfo.main.feels_like);
+                    rslt.TempMax = Convert.ToString(weatherInfo.main.temp_max);
+                    rslt.TempMin = Convert.ToString(weatherInfo.main.temp_min);
+                    rslt.WeatherIcon = weatherInfo.weather[0].icon;
 
-                //Converting OBJECT to JSON String   
-                var jsonstring = new JavaScriptSerializer().Serialize(rslt);
+                    //Converting OBJECT to JSON String   
+                    jsonstring = new JavaScriptSerializer().Serialize(rslt);
+                }
+                catch (Exception ex)
+                {
 
+                    Console.WriteLine(ex.InnerException);
+                }
+
+ 
                 //Return JSON string.  
                 return jsonstring;
             }
