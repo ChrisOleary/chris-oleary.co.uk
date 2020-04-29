@@ -321,7 +321,7 @@ template {
   display: none;
 }
 
-[hidden] {
+/*[hidden] {
   display: none !important;
-}
+}*/
 /*# sourceMappingURL=bootstrap-reboot.css.map */

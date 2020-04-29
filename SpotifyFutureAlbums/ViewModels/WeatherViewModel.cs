@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -11,6 +12,8 @@ namespace SpotifyFutureAlbums.ViewModels
         public string Country { get; set; }
         public string Lat { get; set; }
         public string Lon { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:N0}")]
         public string Description { get; set; }
         public string Humidity { get; set; }
         public string TempFeelsLike { get; set; }

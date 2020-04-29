@@ -1,5 +1,12 @@
 ﻿@model SpotifyFutureAlbums.ViewModels.AllAPIDetails
 @*Weather API*@
+
+    <style>
+        .show {
+            visibility:visible!important;
+        }
+    </style>
+
 <section class="page-section bg-light" id="team">
     <div class="container">
         <div class="row">
@@ -35,13 +42,13 @@
                             </tr>
                         </thead>
                         <tr>
-                            <td><img id="imgWeatherIconUrl" /></td>
+                            <td style="padding-top:0px; padding-bottom:0px;"><img id="imgWeatherIconUrl" src=""/></td>
                             <td id="lblCity"></td>
                             <td id="lblCountry"></td>
                             <td id="lblDescription"></td>
                             <td id="lblTemp"></td>
                             <td id="lblTempMin"></td>
-                            <td id="lblTempMax"></td>
+                            <td id="lblTempMax"></td> 
                         </tr>
                     </table>
                 </div>
@@ -72,7 +79,7 @@
                     $("#lblTemp").text(data.Temp);
                     $("#lblTempMax").text(data.TempMax);
                     $("#lblTempMin").text(data.TempMin);
-                    $("#imgWeatherIconUrl").attr("src", "http://openweathermap.org/img/w/" + data.WeatherIcon + ".png");
+                    $("#imgWeatherIconUrl").attr("src", "https://openweathermap.org/img/w/" + data.WeatherIcon + ".png");
                     //data - response from server
                 },
                 error: function () {
