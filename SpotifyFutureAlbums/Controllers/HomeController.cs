@@ -16,6 +16,8 @@ namespace SpotifyFutureAlbums.Controllers
 {
     public class HomeController : Controller
     {
+      
+
         public async Task<ActionResult> Index()
         {
             //public FF stats
@@ -66,7 +68,7 @@ namespace SpotifyFutureAlbums.Controllers
 
         //Fantasy Football Authenticated API
         [HttpPost]
-        static async Task<T> GetFFStats<T>()
+        static async Task<MyTeamRootObject> GetFFStats<MyTeamRootObject>()
         {
             //TODO: create POST method to retrieve tokens on initial request.
             //Hardcoded for testing
@@ -85,9 +87,24 @@ namespace SpotifyFutureAlbums.Controllers
 
             var client = new HttpClient(handler);        
             var result = await client.GetStringAsync(uri);
-            var DeserializeObject = JsonConvert.DeserializeObject<T>(result);
+            var errors = new List<string>();
+
+            // revised way as previous was falling over on null data being passed in
+            // previous: var DeserializeObject = JsonConvert.DeserializeObject<MyTeamRootObject>(result);
+            var DeserializeObject = JsonConvert.DeserializeObject<MyTeamRootObject>(result, new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Include,
+                Error = delegate (object sender, Newtonsoft.Json.Serialization.ErrorEventArgs earg)
+                {
+                    errors.Add(earg.ErrorContext.Member.ToString());
+                    earg.ErrorContext.Handled = true;
+                }
+            }
+            );
 
             return DeserializeObject;
+
+
         }
 
         //Fantasy Football Public API
