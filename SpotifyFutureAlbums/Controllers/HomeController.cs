@@ -72,8 +72,8 @@ namespace SpotifyFutureAlbums.Controllers
         {
             //TODO: create POST method to retrieve tokens on initial request.
             //Hardcoded for testing
-            var csrftoken = "E2G7bfPMj0qfr9lSzCQvsCZzW6rDV1UXQAZxVVz731Q5y7ESBK663zPqxx630FBc";
-            var pl_profile = "eyJzIjogIld6SXNNVE16TWpnek1EVmQ6MWpBR0FWOnF6R0lyMVFheDh3VmRpWUhrcERLYTFrSnEwRSIsICJ1IjogeyJpZCI6IDEzMzI4MzA1LCAiZm4iOiAiQ2hyaXMiLCAibG4iOiAiTydsZWFyeSIsICJmYyI6IG51bGx9fQ==";
+            var csrftoken = "m8KFRIjVvN17OGfwRvlXc8GRLNiFGnlQgX3uWzpxSGTQGRYO62dZXiOi3AKSR5LE";
+            var pl_profile = "eyJzIjogIld6RXNNVE16TWpnek1EVmQ6MWs2QUVsOmNnSEQzazdUcjVyeElyb2w1NTNwZDJMOW1SZyIsICJ1IjogeyJpZCI6IDEzMzI4MzA1LCAiZm4iOiAiQ2hyaXMiLCAibG4iOiAiTydsZWFyeSIsICJmYyI6IG51bGx9fQ==";
 
             // this url requires the authentication
             var uri = "https://fantasy.premierleague.com/api/my-team/186809";
