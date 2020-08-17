@@ -11,6 +11,7 @@ using SpotifyFutureAlbums.ViewModels;
 using System.Web.Script.Serialization;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using Microsoft.Ajax.Utilities;
 
 namespace SpotifyFutureAlbums.Controllers
 {
@@ -24,7 +25,7 @@ namespace SpotifyFutureAlbums.Controllers
             var FootballObject = await FantasyFootball<FootballObject>();
 
             //private FF stats
-            var FFstats = await GetFFStats<MyTeamRootObject>();
+            //var FFstats = await GetFFStats<MyTeamRootObject>();
 
             //Always Sunny
             var AlwaysSunnyQuote = await GetAlwaysSunnyQuote();
@@ -38,7 +39,7 @@ namespace SpotifyFutureAlbums.Controllers
             return View(new AllAPIDetails
             {
                  Football = FootballObject,
-                 MyTeamRootObject = FFstats,
+                 //MyTeamRootObject = FFstats,
                  AlwaysSunny = AlwaysSunnyQuote
                  //Weather = WeatherDetail
                 //Spotify = spotify
@@ -67,50 +68,58 @@ namespace SpotifyFutureAlbums.Controllers
         }
 
         //Fantasy Football Authenticated API
-        [HttpPost]
-        static async Task<MyTeamRootObject> GetFFStats<MyTeamRootObject>()
-        {
-            //TODO: create POST method to retrieve tokens on initial request.
-            //Hardcoded for testing
-            var csrftoken = "m8KFRIjVvN17OGfwRvlXc8GRLNiFGnlQgX3uWzpxSGTQGRYO62dZXiOi3AKSR5LE";
-            var pl_profile = "eyJzIjogIld6RXNNVE16TWpnek1EVmQ6MWs2QUVsOmNnSEQzazdUcjVyeElyb2w1NTNwZDJMOW1SZyIsICJ1IjogeyJpZCI6IDEzMzI4MzA1LCAiZm4iOiAiQ2hyaXMiLCAibG4iOiAiTydsZWFyeSIsICJmYyI6IG51bGx9fQ==";
-
-            // this url requires the authentication
-            var uri = "https://fantasy.premierleague.com/api/my-team/186809";
-            var cookiecontainer = new CookieContainer();
-
-            // Gets the cookie container used to store server cookies by the handler
-            var handler = new HttpClientHandler();
-            handler.CookieContainer = cookiecontainer;
-            cookiecontainer.Add(new Uri(uri), new Cookie("csrftoken", csrftoken));
-            cookiecontainer.Add(new Uri(uri), new Cookie("pl_profile", pl_profile));
-
-            var client = new HttpClient(handler);        
-            var result = await client.GetStringAsync(uri);
-            var errors = new List<string>();
-
-            // revised way as previous was falling over on null data being passed in
-            // previous: var DeserializeObject = JsonConvert.DeserializeObject<MyTeamRootObject>(result);
-            var DeserializeObject = JsonConvert.DeserializeObject<MyTeamRootObject>(result, new JsonSerializerSettings
-            {
-                NullValueHandling = NullValueHandling.Include,
-                Error = delegate (object sender, Newtonsoft.Json.Serialization.ErrorEventArgs earg)
-                {
-                    errors.Add(earg.ErrorContext.Member.ToString());
-                    earg.ErrorContext.Handled = true;
-                }
-            }
-            );
-
-            return DeserializeObject;
+        //[HttpPost]
+        //static async Task<MyTeamRootObject> GetFFStats<MyTeamRootObject>()
+        //{
+        //    //TODO: create POST method to retrieve tokens on initial request.
+        //    //Hardcoded for testing
+        //    var csrftoken = "m8KFRIjVvN17OGfwRvlXc8GRLNiFGnlQgX3uWzpxSGTQGRYO62dZXiOi3AKSR5LE";
+        //    var pl_profile = "eyJzIjogIld6RXNNVE16TWpnek1EVmQ6MWs2QUVsOmNnSEQzazdUcjVyeElyb2w1NTNwZDJMOW1SZyIsICJ1IjogeyJpZCI6IDEzMzI4MzA1LCAiZm4iOiAiQ2hyaXMiLCAibG4iOiAiTydsZWFyeSIsICJmYyI6IG51bGx9fQ==";
 
 
-        }
+        //    // this url requires the authentication
+        //    var uri = "https://fantasy.premierleague.com/api/my-team/186809";
+        //    var cookiecontainer = new CookieContainer();
+
+        //    // Gets the cookie container used to store server cookies by the handler
+        //    var handler = new HttpClientHandler();
+        //    handler.CookieContainer = cookiecontainer;
+        //    cookiecontainer.Add(new Uri(uri), new Cookie("csrftoken", csrftoken));
+        //    cookiecontainer.Add(new Uri(uri), new Cookie("pl_profile", pl_profile));
+        //    MyTeamRootObject DeserializeObject = default;
+        //    try
+        //    {
+        //        var client = new HttpClient(handler);
+        //        var result = await client.GetStringAsync(uri);
+        //        var errors = new List<string>();
+
+        //        // revised way as previous was falling over on null data being passed in
+        //        // previous: var DeserializeObject = JsonConvert.DeserializeObject<MyTeamRootObject>(result);
+        //         DeserializeObject = JsonConvert.DeserializeObject<MyTeamRootObject>(result, new JsonSerializerSettings
+        //        {
+        //            NullValueHandling = NullValueHandling.Include,
+        //            Error = delegate (object sender, Newtonsoft.Json.Serialization.ErrorEventArgs earg)
+        //            {
+        //                errors.Add(earg.ErrorContext.Member.ToString());
+        //                earg.ErrorContext.Handled = true;
+        //            }
+        //        });
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine(ex.Message);
+        //    }
+            
+        //    return DeserializeObject;
+
+        //}
 
         //Fantasy Football Public API
         [HttpGet]
         static async Task<T> FantasyFootball<T>()
         { 
+            // todo url needs to have new teamid added to url for 20/21 season
             string url = "https://fantasy.premierleague.com/api/entry/186809/";
             var client = new HttpClient();
             var result = await client.GetStringAsync(url);
@@ -197,7 +206,6 @@ namespace SpotifyFutureAlbums.Controllers
 
                     Console.WriteLine(ex.InnerException);
                 }
-
  
                 //Return JSON string.  
                 return jsonstring;
