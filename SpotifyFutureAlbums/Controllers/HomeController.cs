@@ -119,8 +119,7 @@ namespace SpotifyFutureAlbums.Controllers
         [HttpGet]
         static async Task<T> FantasyFootball<T>()
         { 
-            // todo url needs to have new teamid added to url for 20/21 season
-            string url = "https://fantasy.premierleague.com/api/entry/186809/";
+            string url = "https://fantasy.premierleague.com/api/entry/892863/";
             var client = new HttpClient();
             var result = await client.GetStringAsync(url);
 
