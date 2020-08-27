@@ -11,21 +11,20 @@ using SpotifyFutureAlbums.ViewModels;
 using System.Web.Script.Serialization;
 using Newtonsoft.Json;
 using System.Collections.Generic;
-using Microsoft.Ajax.Utilities;
+using Newtonsoft.Json.Linq;
+using System.Linq;
 
 namespace SpotifyFutureAlbums.Controllers
 {
     public class HomeController : Controller
     {
-      
-
         public async Task<ActionResult> Index()
         {
             //public FF stats
             var FootballObject = await FantasyFootball<FootballObject>();
 
-            //private FF stats
-            //var FFstats = await GetFFStats<MyTeamRootObject>();
+           // Authenticated FF stats
+            var FFstats = await GetFFStats<MyTeamRootObject>();
 
             //Always Sunny
             var AlwaysSunnyQuote = await GetAlwaysSunnyQuote();
@@ -36,10 +35,12 @@ namespace SpotifyFutureAlbums.Controllers
             //Spotify
             //var spotify = new GetAccessToken();
 
+            // TODO XBOX API
+
             return View(new AllAPIDetails
             {
                  Football = FootballObject,
-                 //MyTeamRootObject = FFstats,
+                 MyTeamRootObject = FFstats,
                  AlwaysSunny = AlwaysSunnyQuote
                  //Weather = WeatherDetail
                 //Spotify = spotify
@@ -47,73 +48,103 @@ namespace SpotifyFutureAlbums.Controllers
             );
         }
 
-        // Webscrapper
-        [HttpPost]
+       // Webscrapper
+       [HttpPost]
         public string GetUrlSource(string url)
         {
-            url = url.Substring(0, 4) != "http" ? "http://" + url : url;
-            string htmlCode = "";
-            using (WebClient client = new WebClient())
-            {
-                try
-                {
-                    htmlCode = client.DownloadString(url);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("Error: " + ex.Message);
-                }
-            }
-            return htmlCode;
+            var ws = new Webscaper();
+            return ws.GetUrlSource(url);
+            
         }
 
         //Fantasy Football Authenticated API
-        //[HttpPost]
-        //static async Task<MyTeamRootObject> GetFFStats<MyTeamRootObject>()
-        //{
-        //    //TODO: create POST method to retrieve tokens on initial request.
-        //    //Hardcoded for testing
-        //    var csrftoken = "m8KFRIjVvN17OGfwRvlXc8GRLNiFGnlQgX3uWzpxSGTQGRYO62dZXiOi3AKSR5LE";
-        //    var pl_profile = "eyJzIjogIld6RXNNVE16TWpnek1EVmQ6MWs2QUVsOmNnSEQzazdUcjVyeElyb2w1NTNwZDJMOW1SZyIsICJ1IjogeyJpZCI6IDEzMzI4MzA1LCAiZm4iOiAiQ2hyaXMiLCAibG4iOiAiTydsZWFyeSIsICJmYyI6IG51bGx9fQ==";
+        [HttpPost]
+        static async Task<MyTeamRootObject> GetFFStats<MyTeamRootObject>()
+        {
+            //TODO: create POST method to retrieve tokens on initial request.
+            //Hardcoded for testing
+            var csrftoken = GetFFAuthTokensAsync(); // "m8KFRIjVvN17OGfwRvlXc8GRLNiFGnlQgX3uWzpxSGTQGRYO62dZXiOi3AKSR5LE";
+            var pl_profile = "eyJzIjogIld6RXNNVE16TWpnek1EVmQ6MWs2QUVsOmNnSEQzazdUcjVyeElyb2w1NTNwZDJMOW1SZyIsICJ1IjogeyJpZCI6IDEzMzI4MzA1LCAiZm4iOiAiQ2hyaXMiLCAibG4iOiAiTydsZWFyeSIsICJmYyI6IG51bGx9fQ==";
 
 
-        //    // this url requires the authentication
-        //    var uri = "https://fantasy.premierleague.com/api/my-team/186809";
-        //    var cookiecontainer = new CookieContainer();
+            // this url requires the authentication
+            var uri = "https://fantasy.premierleague.com/api/my-team/186809";
+            var cookiecontainer = new CookieContainer();
 
-        //    // Gets the cookie container used to store server cookies by the handler
-        //    var handler = new HttpClientHandler();
-        //    handler.CookieContainer = cookiecontainer;
-        //    cookiecontainer.Add(new Uri(uri), new Cookie("csrftoken", csrftoken));
-        //    cookiecontainer.Add(new Uri(uri), new Cookie("pl_profile", pl_profile));
-        //    MyTeamRootObject DeserializeObject = default;
-        //    try
-        //    {
-        //        var client = new HttpClient(handler);
-        //        var result = await client.GetStringAsync(uri);
-        //        var errors = new List<string>();
+            // Gets the cookie container used to store server cookies by the handler
+            var handler = new HttpClientHandler();
+            handler.CookieContainer = cookiecontainer;
+            //cookiecontainer.Add(new Uri(uri), new Cookie("csrftoken", csrftoken));
+            //cookiecontainer.Add(new Uri(uri), new Cookie("pl_profile", pl_profile));
+            MyTeamRootObject DeserializeObject = default;
+            try
+            {
+                var client = new HttpClient(handler);
+                var result = await client.GetStringAsync(uri);
+                var errors = new List<string>();
 
-        //        // revised way as previous was falling over on null data being passed in
-        //        // previous: var DeserializeObject = JsonConvert.DeserializeObject<MyTeamRootObject>(result);
-        //         DeserializeObject = JsonConvert.DeserializeObject<MyTeamRootObject>(result, new JsonSerializerSettings
-        //        {
-        //            NullValueHandling = NullValueHandling.Include,
-        //            Error = delegate (object sender, Newtonsoft.Json.Serialization.ErrorEventArgs earg)
-        //            {
-        //                errors.Add(earg.ErrorContext.Member.ToString());
-        //                earg.ErrorContext.Handled = true;
-        //            }
-        //        });
+                // revised way as previous was falling over on null data being passed in
+                // previous: var DeserializeObject = JsonConvert.DeserializeObject<MyTeamRootObject>(result);
+                DeserializeObject = JsonConvert.DeserializeObject<MyTeamRootObject>(result, new JsonSerializerSettings
+                {
+                    NullValueHandling = NullValueHandling.Include,
+                    Error = delegate (object sender, Newtonsoft.Json.Serialization.ErrorEventArgs earg)
+                    {
+                        errors.Add(earg.ErrorContext.Member.ToString());
+                        earg.ErrorContext.Handled = true;
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return DeserializeObject;
+        }
 
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine(ex.Message);
-        //    }
-            
-        //    return DeserializeObject;
+        [HttpPost]
+        static async Task<Cookie> GetFFAuthTokensAsync()
+        {
+            //CookieContainer cookies = new CookieContainer();
+            //HttpClientHandler handler = new HttpClientHandler();
+            //handler.CookieContainer = cookies;
 
-        //}
+            //HttpClient client2 = new HttpClient(handler);
+            //HttpResponseMessage response = client2.GetAsync("http://google.com").Result;
+
+            //Uri uri = new Uri("http://google.com");
+            //IEnumerable<Cookie> responseCookies = cookies.GetCookies(uri).Cast<Cookie>();
+            //foreach (Cookie cookie in responseCookies)
+            //    Console.WriteLine(cookie.Name + ": " + cookie.Value);
+
+            //return null;
+
+                var client = new HttpClient();
+                client.BaseAddress = new Uri("https://users.premierleague.com/accounts/login/");
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                //setup login data
+                var username = "chris_oleary@hotmail.co.uk";
+                var password = "99Vs3C!ND4rpzRQ";
+                var formContent = new FormUrlEncodedContent(new[]
+                {
+                    new KeyValuePair<string, string>("grant_type","password"),
+                    new KeyValuePair<string, string>("username", username),
+                    new KeyValuePair<string, string>("grant_type", password),
+                });
+            // send request
+                HttpClientHandler handler = new HttpClientHandler();
+                CookieContainer cookies = new CookieContainer();
+                handler.CookieContainer = cookies;
+                 HttpResponseMessage responseMessage = await client.PostAsync(client.BaseAddress, formContent);
+                Uri uri = new Uri("https://users.premierleague.com/accounts/login/");
+                IEnumerable<Cookie> responseCookies = cookies.GetCookies(uri).Cast<Cookie>();
+                foreach (Cookie cookie in responseCookies)
+                    Console.WriteLine(cookie.Name + ": " + cookie.Value);
+
+            return null;
+
+        }
 
         //Fantasy Football Public API
         [HttpGet]
